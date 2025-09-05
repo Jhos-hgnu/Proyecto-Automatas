@@ -31,17 +31,23 @@ public class ControladorDocumento implements ActionListener {
 
     private void configurarListeners() {
         vista.getBtnAbrir().addActionListener(e -> abrirArchivo());
+        vista.getBtnGuardar().addActionListener(e -> guardarArchivo());
     }
 
     public void abrirArchivo() {
         File archivo = ArchivoTexto.seleccionarArchivoAbrir();
-
+        System.out.println("ABRIR");
         if (archivo != null) {
             try {
                 modelo.cargarDatosDesdeArchivo(archivo);
 
                 vista.mostrarContenido(modelo.getContenido());
                 vista.mostrarEstadoInicial(modelo.getEstadoInicial());
+                vista.mostrarEstadosAceptacionTabla(modelo.getEstadosList());
+                vista.mostrarSimboloEnTabla(modelo.getSimbolosList());
+                
+                modelo.getEstadosList();
+                modelo.getSimbolosList();
 
             } catch (IOException e) {
 
@@ -51,7 +57,22 @@ public class ControladorDocumento implements ActionListener {
 
     }
     
-    
+    public void guardarArchivo(){
+        try {
+            String contenido = vista.obtenerContenido();
+            System.out.println("GUARDAR");
+            File archivoActual = modelo.getArchivoActual();
+            if(archivoActual != null) {
+                modelo.guardarDatosArchivo(archivoActual, contenido);
+                JOptionPane.showMessageDialog(vista, "Archivo Guardado", "Guardar", JOptionPane.ERROR_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(vista, "No hay ningun archivo abierto", "Archivo no seleccionado", JOptionPane.INFORMATION_MESSAGE);
+            }
+            
+        } catch (IOException e){
+            JOptionPane.showMessageDialog(vista, "Error al guardar", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
     
     
 

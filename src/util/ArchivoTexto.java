@@ -26,29 +26,29 @@ public class ArchivoTexto {
 
     static File archivoAbierto;
 
-    public static String abrirArchivotxt(File archivo) throws IOException{
-        
+    public static String abrirArchivotxt(File archivo) throws IOException {
+
         StringBuilder contenido = new StringBuilder();
-        
-        try (BufferedReader br = new BufferedReader(new FileReader(archivo))){
-            
+
+        try (BufferedReader br = new BufferedReader(new FileReader(archivo))) {
+
             String linea;
-            while((linea = br.readLine()) != null){
+            while ((linea = br.readLine()) != null) {
                 contenido.append(linea).append("\n");
             }
-            
-        } 
+
+        }
 
         return contenido.toString();
 
     }
 
-    public static void guardarArchivo(File archivo, String contenido) throws IOException{
-        
-        try(BufferedWriter bw = new BufferedWriter(new FileWriter(archivo))){
+    public static void guardarArchivo(File archivo, String contenido) throws IOException {
+
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(archivo))) {
             bw.write(contenido);
+
         }
-        
 
     }
 
@@ -64,31 +64,29 @@ public class ArchivoTexto {
 //            }
 //        }
 //    }
-
-    public static File seleccionarArchivoAbrir(){
+    public static File seleccionarArchivoAbrir() {
         JFileChooser fileChooser = new JFileChooser();
         FileNameExtensionFilter filtro = new FileNameExtensionFilter("Archivos de texto (*.txt)", "txt");
-        
+
         fileChooser.setFileFilter(filtro);
-        
-        if (fileChooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION){
+
+        if (fileChooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
             return fileChooser.getSelectedFile();
         }
-        
+
         return null;
     }
-  
 
     public static String extraerValorPatronEnArchivo(String contenido, String patron) {
-        
+
         String[] lineas = contenido.split("\n");
-        for (String linea : lineas){
-            if(linea.trim().startsWith(patron)){
+        for (String linea : lineas) {
+            if (linea.trim().startsWith(patron)) {
                 return linea.substring(patron.length()).trim();
             }
         }
         return "";
-        
+
     }
 
     public static void mostrarError(String mensaje, String nombre) {
