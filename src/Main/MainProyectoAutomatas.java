@@ -4,6 +4,9 @@
  */
 package Main;
 
+import controlador.ControladorDocumento;
+import javax.swing.SwingUtilities;
+import modelo.ModeloDocumento;
 import vista.VistaPrincipal;
 
 /**
@@ -17,8 +20,17 @@ public class MainProyectoAutomatas {
      */
     public static void main(String[] args) {
         
-        VistaPrincipal vistaP = new VistaPrincipal();
-        vistaP.setVisible(true);
+        SwingUtilities.invokeLater(() -> {
+            
+            ModeloDocumento modelo = new ModeloDocumento();
+            VistaPrincipal vista = new VistaPrincipal();
+            
+            new ControladorDocumento(modelo, vista);
+            
+            vista.setVisible(true);
+            
+        });
+       
         
     }
     
