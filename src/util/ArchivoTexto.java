@@ -86,7 +86,34 @@ public class ArchivoTexto {
             }
         }
         return "";
+        
+        
+        
+    }
+    
+        public static String extraerBloqueTransiciones(String contenido) {
+        StringBuilder bloque = new StringBuilder();
+        boolean enTransiciones = false;
+        
+        String[] lineas = contenido.split("\n");
+        for (String linea : lineas) {
+            linea = linea.trim();
+            
+            if (linea.equals("Transiciones:")) {
+                enTransiciones = true;
+                continue;
+            }
+            
+            if (enTransiciones) {
+                if (linea.isEmpty() || linea.equals("Cadenas a analizar:")){
+                    break;
+                }
+                bloque.append(linea).append("\n");
+            }
+            
+        }
 
+           return bloque.toString();
     }
 
     public static void mostrarError(String mensaje, String nombre) {

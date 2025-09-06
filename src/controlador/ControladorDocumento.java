@@ -46,8 +46,12 @@ public class ControladorDocumento implements ActionListener {
                 vista.mostrarEstadosAceptacionTabla(modelo.getEstadosList());
                 vista.mostrarSimboloEnTabla(modelo.getSimbolosList());
                 
-                modelo.getEstadosList();
-                modelo.getSimbolosList();
+                vista.mostrarTransicionesEnTabla(
+                    modelo.getEstadosList(), 
+                    modelo.getSimbolosList(), 
+                    modelo.getMatrizTransiciones()
+                );
+                
 
             } catch (IOException e) {
 

@@ -71,6 +71,10 @@ public class ModeloDocumento {
             String simboloStr = ArchivoTexto.extraerValorPatronEnArchivo(contenido, "Simbolos:");
             this.simbolosList = procesarLista(simboloStr);
 
+            String transicionesStr = ArchivoTexto.extraerBloqueTransiciones(contenido);
+            this.transicionesList = procesarTransiciones(transicionesStr);
+            
+            this.matrizTransiciones = crearMatrizTransiciones();
         }
     }
 
@@ -88,6 +92,57 @@ public class ModeloDocumento {
             }
         }
         return items;
+    }
+    
+    private List<String[]> procesarTransiciones(String transicionesStr) {
+        List<String[]> transiciones = new ArrayList<>();
+        if (transicionesStr != null) {
+            String[] lineas = transicionesStr.split("\n");
+            for (String linea : lineas) {
+                if (linea.contains(",")) {
+                    String[] partes = linea.split(",");
+                    if (partes.length == 2) {
+                        transiciones.add(new String[]{partes[0].trim(), partes[1].trim()});
+                    }
+                }
+            }
+        }
+        return transiciones;
+    }
+    
+     private String[][] crearMatrizTransiciones() {
+        if (estadosList.isEmpty() || simbolosList.isEmpty()) {
+            return new String[0][0];
+        }
+        
+        String[][] matriz = new String[estadosList.size()][simbolosList.size()];
+        
+        // Inicializar matriz con "-" o vacío
+        for (int i = 0; i < estadosList.size(); i++) {
+            for (int j = 0; j < simbolosList.size(); j++) {
+                matriz[i][j] = "-"; // Valor por defecto
+            }
+        }
+        
+        // Llenar matriz con transiciones
+        for (String[] transicion : transicionesList) {
+            String estadoOrigen = transicion[0];
+            String[] destinoSimbolo = transicion[1].split("\\|"); // Suponiendo formato "Q1|0"
+            
+            if (destinoSimbolo.length == 2) {
+                String estadoDestino = destinoSimbolo[0].trim();
+                String simbolo = destinoSimbolo[1].trim();
+                
+                int fila = estadosList.indexOf(estadoOrigen);
+                int columna = simbolosList.indexOf(simbolo);
+                
+                if (fila >= 0 && columna >= 0) {
+                    matriz[fila][columna] = estadoDestino;
+                }
+            }
+        }
+        
+        return matriz;
     }
 
     public List<String> getEstadosAceptacionList() {

@@ -34,6 +34,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
     private JTable tablaSimbolos;
     private DefaultTableModel modeloTablaEstados;
     private DefaultTableModel modeloTablaSimbolos;
+    private DefaultTableModel modeloTablaTransiciones;
 
     public VistaPrincipal() {
         initComponents();
@@ -52,6 +53,12 @@ public class VistaPrincipal extends javax.swing.JFrame {
         modeloTablaSimbolos = new DefaultTableModel();
         modeloTablaSimbolos.addColumn("No");
         modeloTablaSimbolos.addColumn("Símbolo");
+        
+        //Tabla de transiciones
+        
+        modeloTablaTransiciones = new DefaultTableModel();
+        
+        
 
 //        tablaEstadosAceptacion = new JTable(modeloTablaEstados);
 //
@@ -107,6 +114,48 @@ public class VistaPrincipal extends javax.swing.JFrame {
             contenedorTablaSimbolos.repaint();
         }
     }
+    
+    public void mostrarTransicionesEnTabla(List<String> estados, List<String> simbolos, String[][] matrizTransiciones){
+        modeloTablaTransiciones.setRowCount(0);
+        modeloTablaTransiciones.setColumnCount(0);
+        
+        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+        centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
+        
+        if(estados != null && simbolos != null && matrizTransiciones != null){
+            
+            //Encabezados de columnas
+            modeloTablaTransiciones.addColumn("");
+            
+            
+            for(int i = 0; i < simbolos.size(); i ++){
+                modeloTablaTransiciones.addColumn(simbolos.get(i));
+            }
+            
+            //Llenar filas
+            for(int i = 0; i < estados.size(); i ++) {
+                Object[] fila = new Object[simbolos.size() + 1];
+                fila[0] = estados.get(i);
+                
+                for (int j = 0; j < simbolos.size(); j++){
+                    fila[j + 1] = matrizTransiciones[i][j];
+                }
+                
+                modeloTablaTransiciones.addRow(fila);
+            }
+            contenedorTablaTransiciones.removeAll();
+            JTable tablaTransiciones = new JTable(modeloTablaTransiciones);
+            JScrollPane tableScrollTransiciones = new JScrollPane(tablaTransiciones);
+            tablaTransiciones.getColumnModel().getColumn(0).setCellRenderer(centerRenderer);
+            tablaTransiciones.getColumnModel().getColumn(1).setCellRenderer(centerRenderer);
+            
+            contenedorTablaTransiciones.add(tableScrollTransiciones);
+            contenedorTablaTransiciones.revalidate();
+            contenedorTablaTransiciones.repaint();
+            
+        }
+        
+    }
 
     //Metodos para el controlador
     public void mostrarContenido(String contenido) {
@@ -152,6 +201,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         scrollPaneTransiciones = new javax.swing.JScrollPane();
+        contenedorTablaTransiciones = new javax.swing.JPanel();
         scrollPaneSimbolos = new javax.swing.JScrollPane();
         contenedorTablaSimbolos = new javax.swing.JPanel();
         scrollPaneEstadosAceptacion = new javax.swing.JScrollPane();
@@ -187,7 +237,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("Área de Texto");
 
-        txtEstadoIncial.setBackground(new java.awt.Color(204, 204, 204));
+        txtEstadoIncial.setBackground(new java.awt.Color(0, 0, 0));
         txtEstadoIncial.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         txtEstadoIncial.setForeground(new java.awt.Color(0, 0, 0));
         txtEstadoIncial.setHorizontalAlignment(javax.swing.JTextField.CENTER);
@@ -210,6 +260,9 @@ public class VistaPrincipal extends javax.swing.JFrame {
         jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(0, 0, 0));
         jLabel5.setText("Transiciones");
+
+        contenedorTablaTransiciones.setLayout(new javax.swing.BoxLayout(contenedorTablaTransiciones, javax.swing.BoxLayout.LINE_AXIS));
+        scrollPaneTransiciones.setViewportView(contenedorTablaTransiciones);
 
         contenedorTablaSimbolos.setLayout(new javax.swing.BoxLayout(contenedorTablaSimbolos, javax.swing.BoxLayout.LINE_AXIS));
         scrollPaneSimbolos.setViewportView(contenedorTablaSimbolos);
@@ -405,6 +458,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
     public javax.swing.JMenu MenuFile;
     private javax.swing.JPanel contenedorTablaEstadosAceptacion;
     private javax.swing.JPanel contenedorTablaSimbolos;
+    private javax.swing.JPanel contenedorTablaTransiciones;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
