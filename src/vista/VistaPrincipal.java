@@ -35,6 +35,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
     private DefaultTableModel modeloTablaEstados;
     private DefaultTableModel modeloTablaSimbolos;
     private DefaultTableModel modeloTablaTransiciones;
+    private DefaultTableModel modeloTablaCadenas;
 
     public VistaPrincipal() {
         initComponents();
@@ -58,8 +59,10 @@ public class VistaPrincipal extends javax.swing.JFrame {
         
         modeloTablaTransiciones = new DefaultTableModel();
         
-        
-
+        //Tabla de Cadenas
+        modeloTablaCadenas = new DefaultTableModel();
+        modeloTablaCadenas.addColumn("No");
+        modeloTablaCadenas.addColumn("Cadenas a Analizar");
 //        tablaEstadosAceptacion = new JTable(modeloTablaEstados);
 //
 //        tablaEstadosAceptacion.setPreferredScrollableViewportSize(new Dimension(10, 155));
@@ -78,12 +81,14 @@ public class VistaPrincipal extends javax.swing.JFrame {
             for (int i = 0; i < estados.size(); i++) {
                 modeloTablaEstados.addRow(new Object[]{i + 1, estados.get(i)});
             }
+            
             JTable tablaEstados = new JTable(modeloTablaEstados);
+           
             JScrollPane tableScrollEstadoAcept = new JScrollPane(tablaEstados);
 
             TableColumnModel columnModel = tablaEstados.getColumnModel();
-            columnModel.getColumn(0).setPreferredWidth(10);
-            columnModel.getColumn(1).setPreferredWidth(15);
+            columnModel.getColumn(0).setPreferredWidth(2);
+            columnModel.getColumn(1).setPreferredWidth(7);
 
             tablaEstados.getColumnModel().getColumn(0).setCellRenderer(centerRenderer);
             tablaEstados.getColumnModel().getColumn(1).setCellRenderer(centerRenderer);
@@ -91,6 +96,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
             contenedorTablaEstadosAceptacion.add(tableScrollEstadoAcept);
             contenedorTablaEstadosAceptacion.revalidate();
             contenedorTablaEstadosAceptacion.repaint();
+             
         }
     }
 
@@ -113,6 +119,11 @@ public class VistaPrincipal extends javax.swing.JFrame {
             contenedorTablaSimbolos.revalidate();
             contenedorTablaSimbolos.repaint();
         }
+    }
+    
+    
+    public void mostrarCadenasEnTabla(){
+        
     }
     
     public void mostrarTransicionesEnTabla(List<String> estados, List<String> simbolos, String[][] matrizTransiciones){
@@ -139,15 +150,18 @@ public class VistaPrincipal extends javax.swing.JFrame {
                 
                 for (int j = 0; j < simbolos.size(); j++){
                     fila[j + 1] = matrizTransiciones[i][j];
+                    System.out.println("Fila: " + fila);
                 }
                 
                 modeloTablaTransiciones.addRow(fila);
             }
+            
             contenedorTablaTransiciones.removeAll();
             JTable tablaTransiciones = new JTable(modeloTablaTransiciones);
             JScrollPane tableScrollTransiciones = new JScrollPane(tablaTransiciones);
             tablaTransiciones.getColumnModel().getColumn(0).setCellRenderer(centerRenderer);
             tablaTransiciones.getColumnModel().getColumn(1).setCellRenderer(centerRenderer);
+            tablaTransiciones.getColumnModel().getColumn(2).setCellRenderer(centerRenderer);
             
             contenedorTablaTransiciones.add(tableScrollTransiciones);
             contenedorTablaTransiciones.revalidate();
@@ -206,7 +220,10 @@ public class VistaPrincipal extends javax.swing.JFrame {
         contenedorTablaSimbolos = new javax.swing.JPanel();
         scrollPaneEstadosAceptacion = new javax.swing.JScrollPane();
         contenedorTablaEstadosAceptacion = new javax.swing.JPanel();
-        jPanel1 = new javax.swing.JPanel();
+        jLabel6 = new javax.swing.JLabel();
+        scrollCadenas = new javax.swing.JScrollPane();
+        contenedorTablaCadenasAnalizar = new javax.swing.JPanel();
+        jButton1 = new javax.swing.JButton();
         MenuBarra = new javax.swing.JMenuBar();
         MenuFile = new javax.swing.JMenu();
         ItemNuevo = new javax.swing.JMenuItem();
@@ -218,12 +235,12 @@ public class VistaPrincipal extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(1080, 720));
 
-        ContenedorPrincipal.setBackground(new java.awt.Color(255, 255, 255));
+        ContenedorPrincipal.setBackground(new java.awt.Color(236, 239, 241));
 
         ContenedorScrollP.setBackground(new java.awt.Color(204, 204, 204));
         ContenedorScrollP.setForeground(new java.awt.Color(204, 204, 204));
 
-        Areatxt.setBackground(new java.awt.Color(204, 204, 204));
+        Areatxt.setBackground(new java.awt.Color(255, 255, 255));
         Areatxt.setColumns(20);
         Areatxt.setRows(5);
         ContenedorScrollP.setViewportView(Areatxt);
@@ -237,11 +254,13 @@ public class VistaPrincipal extends javax.swing.JFrame {
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("Área de Texto");
 
-        txtEstadoIncial.setBackground(new java.awt.Color(0, 0, 0));
+        txtEstadoIncial.setEditable(false);
+        txtEstadoIncial.setBackground(new java.awt.Color(204, 204, 204));
         txtEstadoIncial.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         txtEstadoIncial.setForeground(new java.awt.Color(0, 0, 0));
         txtEstadoIncial.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtEstadoIncial.setEnabled(false);
+        txtEstadoIncial.setSelectedTextColor(new java.awt.Color(0, 0, 0));
+        txtEstadoIncial.setSelectionColor(new java.awt.Color(0, 0, 0));
         txtEstadoIncial.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtEstadoIncialActionPerformed(evt);
@@ -270,94 +289,105 @@ public class VistaPrincipal extends javax.swing.JFrame {
         contenedorTablaEstadosAceptacion.setLayout(new javax.swing.BoxLayout(contenedorTablaEstadosAceptacion, javax.swing.BoxLayout.LINE_AXIS));
         scrollPaneEstadosAceptacion.setViewportView(contenedorTablaEstadosAceptacion);
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 200, Short.MAX_VALUE)
+        jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel6.setText("Cadenas a Analizar");
+
+        javax.swing.GroupLayout contenedorTablaCadenasAnalizarLayout = new javax.swing.GroupLayout(contenedorTablaCadenasAnalizar);
+        contenedorTablaCadenasAnalizar.setLayout(contenedorTablaCadenasAnalizarLayout);
+        contenedorTablaCadenasAnalizarLayout.setHorizontalGroup(
+            contenedorTablaCadenasAnalizarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 269, Short.MAX_VALUE)
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 155, Short.MAX_VALUE)
+        contenedorTablaCadenasAnalizarLayout.setVerticalGroup(
+            contenedorTablaCadenasAnalizarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 114, Short.MAX_VALUE)
         );
+
+        scrollCadenas.setViewportView(contenedorTablaCadenasAnalizar);
+
+        jButton1.setText("Probar Autómata");
 
         javax.swing.GroupLayout ContenedorPrincipalLayout = new javax.swing.GroupLayout(ContenedorPrincipal);
         ContenedorPrincipal.setLayout(ContenedorPrincipalLayout);
         ContenedorPrincipalLayout.setHorizontalGroup(
             ContenedorPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(ContenedorPrincipalLayout.createSequentialGroup()
+                .addGap(201, 201, 201)
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(ContenedorPrincipalLayout.createSequentialGroup()
+                .addGap(16, 16, 16)
                 .addGroup(ContenedorPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(ContenedorPrincipalLayout.createSequentialGroup()
-                        .addGap(19, 19, 19)
-                        .addComponent(ContenedorScrollP, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(ContenedorPrincipalLayout.createSequentialGroup()
-                        .addGap(64, 64, 64)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGroup(ContenedorPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(ContenedorPrincipalLayout.createSequentialGroup()
-                        .addGap(42, 42, 42)
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 68, Short.MAX_VALUE)
-                        .addComponent(txtEstadoIncial, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(672, 672, 672))
-                    .addGroup(ContenedorPrincipalLayout.createSequentialGroup()
-                        .addGap(56, 56, 56)
-                        .addComponent(jLabel3)
+                        .addComponent(jLabel5)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(ContenedorPrincipalLayout.createSequentialGroup()
-                        .addGroup(ContenedorPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(ContenedorPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(ContenedorPrincipalLayout.createSequentialGroup()
+                                .addGroup(ContenedorPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(scrollPaneEstadosAceptacion, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel3))
                                 .addGap(18, 18, 18)
                                 .addGroup(ContenedorPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(ContenedorPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(scrollPaneSimbolos, javax.swing.GroupLayout.DEFAULT_SIZE, 275, Short.MAX_VALUE)
-                                        .addComponent(scrollPaneTransiciones))
-                                    .addComponent(scrollPaneEstadosAceptacion, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(265, 265, 265)
-                                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(ContenedorPrincipalLayout.createSequentialGroup()
-                                .addGap(117, 117, 117)
-                                .addComponent(jLabel4))
-                            .addGroup(ContenedorPrincipalLayout.createSequentialGroup()
-                                .addGap(108, 108, 108)
-                                .addComponent(jLabel5)))
-                        .addContainerGap(224, Short.MAX_VALUE))))
+                                    .addComponent(jLabel4)
+                                    .addComponent(scrollPaneSimbolos, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(ContenedorScrollP)
+                            .addComponent(scrollPaneTransiciones, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(ContenedorPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(txtEstadoIncial))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 83, Short.MAX_VALUE)
+                        .addGroup(ContenedorPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ContenedorPrincipalLayout.createSequentialGroup()
+                                .addComponent(jButton1)
+                                .addGap(34, 34, 34)
+                                .addComponent(scrollCadenas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(54, 54, 54))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ContenedorPrincipalLayout.createSequentialGroup()
+                                .addComponent(jLabel6)
+                                .addGap(107, 107, 107))))))
         );
         ContenedorPrincipalLayout.setVerticalGroup(
             ContenedorPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ContenedorPrincipalLayout.createSequentialGroup()
-                .addGroup(ContenedorPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+            .addGroup(ContenedorPrincipalLayout.createSequentialGroup()
+                .addGroup(ContenedorPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(ContenedorPrincipalLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(ContenedorPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtEstadoIncial, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel3)
-                        .addGroup(ContenedorPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(ContenedorPrincipalLayout.createSequentialGroup()
-                                .addGap(6, 6, 6)
-                                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(ContenedorPrincipalLayout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(scrollPaneEstadosAceptacion, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel4)
-                        .addGap(18, 18, 18)
-                        .addComponent(scrollPaneSimbolos, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(24, 24, 24)
-                        .addComponent(jLabel5)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(scrollPaneTransiciones, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(ContenedorPrincipalLayout.createSequentialGroup()
-                        .addGap(0, 35, Short.MAX_VALUE)
+                        .addGap(0, 8, Short.MAX_VALUE)
                         .addComponent(jLabel2)
-                        .addGap(18, 18, 18)
-                        .addComponent(ContenedorScrollP, javax.swing.GroupLayout.PREFERRED_SIZE, 599, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(45, 45, 45))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(ContenedorPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(ContenedorScrollP, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(ContenedorPrincipalLayout.createSequentialGroup()
+                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtEstadoIncial, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(ContenedorPrincipalLayout.createSequentialGroup()
+                        .addGap(34, 34, 34)
+                        .addGroup(ContenedorPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jButton1)
+                            .addGroup(ContenedorPrincipalLayout.createSequentialGroup()
+                                .addComponent(jLabel6)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(scrollCadenas, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addGap(86, 86, 86)
+                .addGroup(ContenedorPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel4))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(ContenedorPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(scrollPaneEstadosAceptacion, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(scrollPaneSimbolos, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel5)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(scrollPaneTransiciones, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
-        MenuBarra.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        MenuBarra.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         MenuBarra.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         MenuFile.setText("File");
@@ -456,27 +486,23 @@ public class VistaPrincipal extends javax.swing.JFrame {
     public javax.swing.JMenuItem ItemNuevo;
     private javax.swing.JMenuBar MenuBarra;
     public javax.swing.JMenu MenuFile;
+    private javax.swing.JPanel contenedorTablaCadenasAnalizar;
     private javax.swing.JPanel contenedorTablaEstadosAceptacion;
     private javax.swing.JPanel contenedorTablaSimbolos;
     private javax.swing.JPanel contenedorTablaTransiciones;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JScrollPane scrollCadenas;
     private javax.swing.JScrollPane scrollPaneEstadosAceptacion;
     private javax.swing.JScrollPane scrollPaneSimbolos;
     private javax.swing.JScrollPane scrollPaneTransiciones;
     public javax.swing.JTextField txtEstadoIncial;
     // End of variables declaration//GEN-END:variables
 
-    public void setControlador(ControladorDocumento controlador) {
-        ItemAbrir.addActionListener(controlador);
-        ItemGuardarComo.addActionListener(controlador);
-        ItemNuevo.addActionListener(controlador);
-        ItemGuardar.addActionListener(controlador);
-        ItemCerrar.addActionListener(controlador);
-    }
 
 }

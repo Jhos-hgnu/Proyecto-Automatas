@@ -7,6 +7,7 @@ package modelo;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import util.ArchivoTexto;
 import vista.VistaPrincipal;
@@ -66,14 +67,13 @@ public class ModeloDocumento {
             String estadosStr = ArchivoTexto.extraerValorPatronEnArchivo(contenido, "Estados:");
             this.estadosList = procesarLista(estadosStr);
             System.out.println("Estados en modelo: " + estadosStr);
-            
-            
+
             String simboloStr = ArchivoTexto.extraerValorPatronEnArchivo(contenido, "Simbolos:");
             this.simbolosList = procesarLista(simboloStr);
 
             String transicionesStr = ArchivoTexto.extraerBloqueTransiciones(contenido);
             this.transicionesList = procesarTransiciones(transicionesStr);
-            
+
             this.matrizTransiciones = crearMatrizTransiciones();
         }
     }
@@ -93,55 +93,44 @@ public class ModeloDocumento {
         }
         return items;
     }
-    
+
     private List<String[]> procesarTransiciones(String transicionesStr) {
+        System.out.println("ProcesarTransicciones " + transicionesStr);
         List<String[]> transiciones = new ArrayList<>();
         if (transicionesStr != null) {
             String[] lineas = transicionesStr.split("\n");
             for (String linea : lineas) {
-                if (linea.contains(",")) {
-                    String[] partes = linea.split(",");
-                    if (partes.length == 2) {
-                        transiciones.add(new String[]{partes[0].trim(), partes[1].trim()});
-                    }
+                String[] partes = linea.split(",");
+                if (partes.length == simbolosList.size()) {
+                    transiciones.add(partes);
                 }
             }
         }
         return transiciones;
     }
-    
-     private String[][] crearMatrizTransiciones() {
+
+    private String[][] crearMatrizTransiciones() {
+        System.out.println("Incio del metodo crear Matriz");
         if (estadosList.isEmpty() || simbolosList.isEmpty()) {
             return new String[0][0];
         }
-        
+
         String[][] matriz = new String[estadosList.size()][simbolosList.size()];
-        
+
         // Inicializar matriz con "-" o vacío
         for (int i = 0; i < estadosList.size(); i++) {
             for (int j = 0; j < simbolosList.size(); j++) {
                 matriz[i][j] = "-"; // Valor por defecto
             }
+
         }
-        
-        // Llenar matriz con transiciones
-        for (String[] transicion : transicionesList) {
-            String estadoOrigen = transicion[0];
-            String[] destinoSimbolo = transicion[1].split("\\|"); // Suponiendo formato "Q1|0"
-            
-            if (destinoSimbolo.length == 2) {
-                String estadoDestino = destinoSimbolo[0].trim();
-                String simbolo = destinoSimbolo[1].trim();
-                
-                int fila = estadosList.indexOf(estadoOrigen);
-                int columna = simbolosList.indexOf(simbolo);
-                
-                if (fila >= 0 && columna >= 0) {
-                    matriz[fila][columna] = estadoDestino;
-                }
+
+        for (int fila = 0; fila < estadosList.size(); fila++) {
+            String[] destinos = transicionesList.get(fila);
+            for (int columna = 0; columna < destinos.length; columna++) {
+                matriz[fila][columna] = destinos[columna].trim();
             }
         }
-        
         return matriz;
     }
 
@@ -161,19 +150,5 @@ public class ModeloDocumento {
         return matrizTransiciones;
     }
 
-    public ModeloDocumento() {
-    }
-
-    public ModeloDocumento(VistaPrincipal vistaInicioLector) {
-        this.vistaInicioLector = vistaInicioLector;
-    }
-
-    public VistaPrincipal getVistaInicioLector() {
-        return vistaInicioLector;
-    }
-
-    public void setVistaInicioLector(VistaPrincipal vistaInicioLector) {
-        this.vistaInicioLector = vistaInicioLector;
-    }
 
 }
