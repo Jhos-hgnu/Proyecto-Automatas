@@ -11,6 +11,7 @@ import java.io.IOException;
 import javax.swing.JOptionPane;
 import modelo.ModeloDocumento;
 import util.ArchivoTexto;
+import vista.VistaAcercaDe;
 import vista.VistaPrincipal;
 
 /**
@@ -28,10 +29,12 @@ public class ControladorDocumento implements ActionListener {
         configurarListeners();
 
     }
-
+    
+    //Control de botones
     private void configurarListeners() {
         vista.getBtnAbrir().addActionListener(e -> abrirArchivo());
         vista.getBtnGuardar().addActionListener(e -> guardarArchivo());
+        vista.getBtnAcercaDe().addActionListener(e -> mostrarInformacion());
     }
 
     public void abrirArchivo() {
@@ -78,7 +81,11 @@ public class ControladorDocumento implements ActionListener {
         }
     }
     
-    
+    public void mostrarInformacion(){
+        VistaAcercaDe vistaInfo = new VistaAcercaDe();
+        vistaInfo.setVisible(true);
+        
+    }
 
     @Override
     public void actionPerformed(ActionEvent e) {

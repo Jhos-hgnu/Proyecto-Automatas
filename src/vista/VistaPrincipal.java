@@ -195,6 +195,10 @@ public class VistaPrincipal extends javax.swing.JFrame {
     public JMenuItem getBtnGuardarComo() {
         return ItemGuardarComo;
     }
+    
+    public JMenuItem getBtnAcercaDe(){
+        return ItemAcercaDe;
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -231,6 +235,14 @@ public class VistaPrincipal extends javax.swing.JFrame {
         ItemCerrar = new javax.swing.JMenuItem();
         ItemGuardar = new javax.swing.JMenuItem();
         ItemGuardarComo = new javax.swing.JMenuItem();
+        MenuEjemplos = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
+        jMenuItem3 = new javax.swing.JMenuItem();
+        MenuInformacion = new javax.swing.JMenu();
+        ItemAcercaDe = new javax.swing.JMenuItem();
+        ItemManualTec = new javax.swing.JMenuItem();
+        jMenuItem6 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(1080, 720));
@@ -338,7 +350,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
                         .addGroup(ContenedorPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(txtEstadoIncial))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 83, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 178, Short.MAX_VALUE)
                         .addGroup(ContenedorPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ContenedorPrincipalLayout.createSequentialGroup()
                                 .addComponent(jButton1)
@@ -393,12 +405,12 @@ public class VistaPrincipal extends javax.swing.JFrame {
         MenuFile.setText("File");
 
         ItemNuevo.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_N, java.awt.event.InputEvent.CTRL_DOWN_MASK));
-        ItemNuevo.setText("Nuevo");
+        ItemNuevo.setText("Nuevo txt");
         ItemNuevo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         MenuFile.add(ItemNuevo);
 
         ItemAbrir.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.CTRL_DOWN_MASK));
-        ItemAbrir.setText("Abrir");
+        ItemAbrir.setText("Abrir txt");
         ItemAbrir.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         MenuFile.add(ItemAbrir);
 
@@ -408,7 +420,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
         MenuFile.add(ItemCerrar);
 
         ItemGuardar.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_DOWN_MASK));
-        ItemGuardar.setText("Guardar");
+        ItemGuardar.setText("Guardar txt");
         ItemGuardar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         MenuFile.add(ItemGuardar);
 
@@ -418,6 +430,32 @@ public class VistaPrincipal extends javax.swing.JFrame {
         MenuFile.add(ItemGuardarComo);
 
         MenuBarra.add(MenuFile);
+
+        MenuEjemplos.setText("Ejemplos");
+
+        jMenuItem1.setText("Ejemplo1");
+        MenuEjemplos.add(jMenuItem1);
+
+        jMenuItem2.setText("Ejemplo2");
+        MenuEjemplos.add(jMenuItem2);
+
+        jMenuItem3.setText("Ejemplo3");
+        MenuEjemplos.add(jMenuItem3);
+
+        MenuBarra.add(MenuEjemplos);
+
+        MenuInformacion.setText("Información");
+
+        ItemAcercaDe.setText("Acerca de:");
+        MenuInformacion.add(ItemAcercaDe);
+
+        ItemManualTec.setText("Manual Técnico");
+        MenuInformacion.add(ItemManualTec);
+
+        jMenuItem6.setText("Manual Usuario");
+        MenuInformacion.add(jMenuItem6);
+
+        MenuBarra.add(MenuInformacion);
 
         setJMenuBar(MenuBarra);
 
@@ -480,12 +518,16 @@ public class VistaPrincipal extends javax.swing.JFrame {
     private javax.swing.JPanel ContenedorPrincipal;
     private javax.swing.JScrollPane ContenedorScrollP;
     public javax.swing.JMenuItem ItemAbrir;
+    private javax.swing.JMenuItem ItemAcercaDe;
     public javax.swing.JMenuItem ItemCerrar;
     public javax.swing.JMenuItem ItemGuardar;
     public javax.swing.JMenuItem ItemGuardarComo;
+    private javax.swing.JMenuItem ItemManualTec;
     public javax.swing.JMenuItem ItemNuevo;
     private javax.swing.JMenuBar MenuBarra;
+    private javax.swing.JMenu MenuEjemplos;
     public javax.swing.JMenu MenuFile;
+    private javax.swing.JMenu MenuInformacion;
     private javax.swing.JPanel contenedorTablaCadenasAnalizar;
     private javax.swing.JPanel contenedorTablaEstadosAceptacion;
     private javax.swing.JPanel contenedorTablaSimbolos;
@@ -497,6 +539,10 @@ public class VistaPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JScrollPane scrollCadenas;
     private javax.swing.JScrollPane scrollPaneEstadosAceptacion;
     private javax.swing.JScrollPane scrollPaneSimbolos;
