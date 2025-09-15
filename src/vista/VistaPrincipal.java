@@ -82,6 +82,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
                 modeloTablaEstados.addRow(new Object[]{i + 1, estados.get(i)});
             }
             
+            contenedorTablaEstadosAceptacion.removeAll();
             JTable tablaEstados = new JTable(modeloTablaEstados);
            
             JScrollPane tableScrollEstadoAcept = new JScrollPane(tablaEstados);
@@ -109,7 +110,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
             for (int i = 0; i < simbolos.size(); i++) {
                 modeloTablaSimbolos.addRow(new Object[]{i + 1, simbolos.get(i)});
             }
-            
+            contenedorTablaSimbolos.removeAll();
             JTable tablaSimbolos = new JTable(modeloTablaSimbolos);
             JScrollPane tableScrolSimbolos = new JScrollPane(tablaSimbolos);
             tablaSimbolos.getColumnModel().getColumn(0).setCellRenderer(centerRenderer);
@@ -199,6 +200,10 @@ public class VistaPrincipal extends javax.swing.JFrame {
     public JMenuItem getBtnAcercaDe(){
         return ItemAcercaDe;
     }
+    
+    public JButton getBtnProbartxt(){
+        return btnProbartxt;
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -228,6 +233,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
         scrollCadenas = new javax.swing.JScrollPane();
         contenedorTablaCadenasAnalizar = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
+        btnProbartxt = new javax.swing.JButton();
         MenuBarra = new javax.swing.JMenuBar();
         MenuFile = new javax.swing.JMenu();
         ItemNuevo = new javax.swing.JMenuItem();
@@ -281,7 +287,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel3.setText("Estados de Aceptación");
+        jLabel3.setText("Estados");
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(0, 0, 0));
@@ -320,6 +326,8 @@ public class VistaPrincipal extends javax.swing.JFrame {
 
         jButton1.setText("Probar Autómata");
 
+        btnProbartxt.setText("Probar txt");
+
         javax.swing.GroupLayout ContenedorPrincipalLayout = new javax.swing.GroupLayout(ContenedorPrincipal);
         ContenedorPrincipal.setLayout(ContenedorPrincipalLayout);
         ContenedorPrincipalLayout.setHorizontalGroup(
@@ -332,9 +340,6 @@ public class VistaPrincipal extends javax.swing.JFrame {
                 .addGap(16, 16, 16)
                 .addGroup(ContenedorPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(ContenedorPrincipalLayout.createSequentialGroup()
-                        .addComponent(jLabel5)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(ContenedorPrincipalLayout.createSequentialGroup()
                         .addGroup(ContenedorPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(ContenedorPrincipalLayout.createSequentialGroup()
                                 .addGroup(ContenedorPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -345,12 +350,12 @@ public class VistaPrincipal extends javax.swing.JFrame {
                                     .addComponent(jLabel4)
                                     .addComponent(scrollPaneSimbolos, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addComponent(ContenedorScrollP)
-                            .addComponent(scrollPaneTransiciones, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(scrollPaneTransiciones, javax.swing.GroupLayout.PREFERRED_SIZE, 460, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(ContenedorPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(txtEstadoIncial))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 178, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(ContenedorPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ContenedorPrincipalLayout.createSequentialGroup()
                                 .addComponent(jButton1)
@@ -359,7 +364,12 @@ public class VistaPrincipal extends javax.swing.JFrame {
                                 .addGap(54, 54, 54))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ContenedorPrincipalLayout.createSequentialGroup()
                                 .addComponent(jLabel6)
-                                .addGap(107, 107, 107))))))
+                                .addGap(107, 107, 107))))
+                    .addGroup(ContenedorPrincipalLayout.createSequentialGroup()
+                        .addGroup(ContenedorPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnProbartxt)
+                            .addComponent(jLabel5))
+                        .addGap(0, 1253, Short.MAX_VALUE))))
         );
         ContenedorPrincipalLayout.setVerticalGroup(
             ContenedorPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -384,7 +394,9 @@ public class VistaPrincipal extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(scrollCadenas, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 0, Short.MAX_VALUE)))
-                .addGap(86, 86, 86)
+                .addGap(18, 18, 18)
+                .addComponent(btnProbartxt)
+                .addGap(41, 41, 41)
                 .addGroup(ContenedorPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(jLabel4))
@@ -528,6 +540,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenu MenuEjemplos;
     public javax.swing.JMenu MenuFile;
     private javax.swing.JMenu MenuInformacion;
+    private javax.swing.JButton btnProbartxt;
     private javax.swing.JPanel contenedorTablaCadenasAnalizar;
     private javax.swing.JPanel contenedorTablaEstadosAceptacion;
     private javax.swing.JPanel contenedorTablaSimbolos;
@@ -543,10 +556,10 @@ public class VistaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem6;
-    private javax.swing.JScrollPane scrollCadenas;
-    private javax.swing.JScrollPane scrollPaneEstadosAceptacion;
-    private javax.swing.JScrollPane scrollPaneSimbolos;
-    private javax.swing.JScrollPane scrollPaneTransiciones;
+    public javax.swing.JScrollPane scrollCadenas;
+    public javax.swing.JScrollPane scrollPaneEstadosAceptacion;
+    public javax.swing.JScrollPane scrollPaneSimbolos;
+    public javax.swing.JScrollPane scrollPaneTransiciones;
     public javax.swing.JTextField txtEstadoIncial;
     // End of variables declaration//GEN-END:variables
 

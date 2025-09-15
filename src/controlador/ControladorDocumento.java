@@ -29,12 +29,13 @@ public class ControladorDocumento implements ActionListener {
         configurarListeners();
 
     }
-    
+
     //Control de botones
     private void configurarListeners() {
         vista.getBtnAbrir().addActionListener(e -> abrirArchivo());
         vista.getBtnGuardar().addActionListener(e -> guardarArchivo());
-        vista.getBtnAcercaDe().addActionListener(e -> mostrarInformacion());
+        vista.getBtnAcercaDe().addActionListener(e -> mostrarInformacionAcercaDe());
+        vista.getBtnProbartxt().addActionListener(e -> mostrarDatosTablas());
     }
 
     public void abrirArchivo() {
@@ -45,16 +46,15 @@ public class ControladorDocumento implements ActionListener {
                 modelo.cargarDatosDesdeArchivo(archivo);
 
                 vista.mostrarContenido(modelo.getContenido());
-                vista.mostrarEstadoInicial(modelo.getEstadoInicial());
-                vista.mostrarEstadosAceptacionTabla(modelo.getEstadosList());
-                vista.mostrarSimboloEnTabla(modelo.getSimbolosList());
-                
-                vista.mostrarTransicionesEnTabla(
-                    modelo.getEstadosList(), 
-                    modelo.getSimbolosList(), 
-                    modelo.getMatrizTransiciones()
-                );
-                
+//                vista.mostrarEstadoInicial(modelo.getEstadoInicial());
+//                vista.mostrarEstadosAceptacionTabla(modelo.getEstadosList());
+//                vista.mostrarSimboloEnTabla(modelo.getSimbolosList());
+//                
+//                vista.mostrarTransicionesEnTabla(
+//                    modelo.getEstadosList(), 
+//                    modelo.getSimbolosList(), 
+//                    modelo.getMatrizTransiciones()
+//                );
 
             } catch (IOException e) {
 
@@ -63,32 +63,75 @@ public class ControladorDocumento implements ActionListener {
         }
 
     }
-    
-    public void guardarArchivo(){
+
+    public void guardarArchivo() {
         try {
             String contenido = vista.obtenerContenido();
             System.out.println("GUARDAR");
             File archivoActual = modelo.getArchivoActual();
-            if(archivoActual != null) {
+            if (archivoActual != null) {
                 modelo.guardarDatosArchivo(archivoActual, contenido);
                 JOptionPane.showMessageDialog(vista, "Archivo Guardado", "Guardar", JOptionPane.ERROR_MESSAGE);
             } else {
                 JOptionPane.showMessageDialog(vista, "No hay ningun archivo abierto", "Archivo no seleccionado", JOptionPane.INFORMATION_MESSAGE);
             }
-            
-        } catch (IOException e){
+
+        } catch (IOException e) {
             JOptionPane.showMessageDialog(vista, "Error al guardar", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
-    
-    public void mostrarInformacion(){
+
+    public void mostrarDatosTablas() {
+
+        if (vista.Areatxt.getText().equals("")) {
+            JOptionPane.showMessageDialog(vista, "Debe de seleccionar algún archivo", "Documento no seleccionado", JOptionPane.ERROR_MESSAGE);
+
+        } else {
+
+            try {
+                modelo.cargarDatosDesdeArchivo(ArchivoTexto.archivoAbierto);
+
+                vista.mostrarContenido(modelo.getContenido());
+
+                limpiarElementos();
+                vista.mostrarEstadoInicial(modelo.getEstadoInicial());
+                vista.mostrarEstadosAceptacionTabla(modelo.getEstadosList());
+                vista.mostrarSimboloEnTabla(modelo.getSimbolosList());
+
+                vista.mostrarTransicionesEnTabla(
+                        modelo.getEstadosList(),
+                        modelo.getSimbolosList(),
+                        modelo.getMatrizTransiciones()
+                );
+
+            } catch (IOException e) {
+                JOptionPane.showMessageDialog(vista, "Error al leer el archivo", "Error de lectura", JOptionPane.ERROR_MESSAGE);
+
+            }
+
+        }
+
+    }
+
+    public void mostrarInformacionAcercaDe() {
         VistaAcercaDe vistaInfo = new VistaAcercaDe();
         vistaInfo.setVisible(true);
-        
+
+    }
+
+    //Método para limpiar elementos gráficos
+    public void limpiarElementos() {
+        vista.txtEstadoIncial.revalidate();
+        vista.scrollPaneEstadosAceptacion.revalidate();
+        vista.scrollPaneSimbolos.revalidate();
+        vista.scrollPaneTransiciones.revalidate();
+        vista.scrollPaneEstadosAceptacion.repaint();
+        vista.scrollPaneSimbolos.repaint();
+        vista.scrollPaneTransiciones.repaint();
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-
     }
+
 }

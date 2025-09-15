@@ -24,12 +24,12 @@ import modelo.ModeloDocumento;
  */
 public class ArchivoTexto {
 
-    static File archivoAbierto;
+    public static File archivoAbierto;
 
     public static String abrirArchivotxt(File archivo) throws IOException {
 
         StringBuilder contenido = new StringBuilder();
-
+        archivoAbierto = archivo;
         try (BufferedReader br = new BufferedReader(new FileReader(archivo))) {
 
             String linea;
