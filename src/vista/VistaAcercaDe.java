@@ -24,7 +24,7 @@ public class VistaAcercaDe extends javax.swing.JFrame {
         
         
         
-        setTitle("Automátas y Lenguajes Formales - Información");
+        setTitle("Autómatas y Lenguajes Formales - Información");
         
         Image icono = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/resources/IconAutomatasLenguajes.png"));
         setIconImage(icono);

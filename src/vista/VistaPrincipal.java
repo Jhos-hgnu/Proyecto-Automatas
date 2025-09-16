@@ -39,7 +39,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
 
     public VistaPrincipal() {
         initComponents();
-        setTitle("Automátas y Lenguajes Formales");
+        setTitle("Autómatas y Lenguajes Formales");
         setLocationRelativeTo(null);
 
         Image icono = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/resources/IconAutomatasLenguajes.png"));
