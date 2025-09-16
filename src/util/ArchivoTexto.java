@@ -13,6 +13,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.ImageIcon;
+import javax.swing.JDialog;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -51,7 +53,7 @@ public class ArchivoTexto {
         }
 
     }
-
+    
 //    public static void sobreEscribirArchivo(String contenido) {
 //
 //        if (archivoAbierto == null) {
@@ -66,6 +68,9 @@ public class ArchivoTexto {
 //    }
     public static File seleccionarArchivoAbrir() {
         JFileChooser fileChooser = new JFileChooser();
+       
+        fileChooser.setDialogTitle("Abrir archivo txt");
+       
         FileNameExtensionFilter filtro = new FileNameExtensionFilter("Archivos de texto (*.txt)", "txt");
 
         fileChooser.setFileFilter(filtro);

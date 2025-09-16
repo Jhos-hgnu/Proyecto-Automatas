@@ -8,6 +8,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import modelo.ModeloDocumento;
 import util.ArchivoTexto;
@@ -71,9 +72,10 @@ public class ControladorDocumento implements ActionListener {
             File archivoActual = modelo.getArchivoActual();
             if (archivoActual != null) {
                 modelo.guardarDatosArchivo(archivoActual, contenido);
-                JOptionPane.showMessageDialog(vista, "Archivo Guardado", "Guardar", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(vista, "Archivo Guardado", "Guardar", JOptionPane.INFORMATION_MESSAGE);
             } else {
-                JOptionPane.showMessageDialog(vista, "No hay ningun archivo abierto", "Archivo no seleccionado", JOptionPane.INFORMATION_MESSAGE);
+                  guardarComoArchivo();
+//                JOptionPane.showMessageDialog(vista, "No hay ningun archivo abierto", "Archivo no seleccionado", JOptionPane.INFORMATION_MESSAGE);
             }
 
         } catch (IOException e) {
@@ -81,15 +83,43 @@ public class ControladorDocumento implements ActionListener {
         }
     }
 
+    public void guardarComoArchivo() {
+        try {
+            String contenido = vista.obtenerContenido();
+
+            JFileChooser fileChooser = new JFileChooser();
+            fileChooser.setDialogTitle("Guardar como");
+            int seleccion = fileChooser.showSaveDialog(vista);
+
+            if (seleccion == JFileChooser.APPROVE_OPTION) {
+                File archivoSeleccionado = fileChooser.getSelectedFile();
+
+                if (!archivoSeleccionado.getName().toLowerCase().endsWith(".txt")) {
+                    archivoSeleccionado = new File(archivoSeleccionado.getAbsolutePath() + ".txt");
+                }
+                modelo.guardarDatosArchivo(archivoSeleccionado, contenido);
+
+                JOptionPane.showMessageDialog(vista, "Archivo guardado como: " + archivoSeleccionado.getName(),
+                        "Guardar como", JOptionPane.INFORMATION_MESSAGE);
+
+            }
+
+        } catch (Exception e) {
+
+            JOptionPane.showMessageDialog(vista, "Error al guardar el archivo", "Error", JOptionPane.ERROR_MESSAGE);
+
+        }
+    }
+
     public void mostrarDatosTablas() {
 
         if (vista.Areatxt.getText().equals("")) {
             JOptionPane.showMessageDialog(vista, "Debe de seleccionar algún archivo", "Documento no seleccionado", JOptionPane.ERROR_MESSAGE);
-
+            //ArchivoTexto.archivoAbierto
         } else {
 
             try {
-                modelo.cargarDatosDesdeArchivo(ArchivoTexto.archivoAbierto);
+                modelo.cargarDatosDesdeArchivo(modelo.getArchivoActual());
 
                 vista.mostrarContenido(modelo.getContenido());
 
