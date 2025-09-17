@@ -10,6 +10,7 @@ import java.io.File;
 import java.io.IOException;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 import modelo.ModeloDocumento;
 import util.ArchivoTexto;
 import vista.VistaAcercaDe;
@@ -37,6 +38,9 @@ public class ControladorDocumento implements ActionListener {
         vista.getBtnGuardar().addActionListener(e -> guardarArchivo());
         vista.getBtnAcercaDe().addActionListener(e -> mostrarInformacionAcercaDe());
         vista.getBtnProbartxt().addActionListener(e -> mostrarDatosTablas());
+        vista.getBtnGuardarComo().addActionListener(e -> guardarComoArchivo());
+        vista.getBtnCerrar().addActionListener(e -> cerrarArchivo());
+        vista.getBtnNuevo().addActionListener(e -> nuevoArchivo());
     }
 
     public void abrirArchivo() {
@@ -45,18 +49,8 @@ public class ControladorDocumento implements ActionListener {
         if (archivo != null) {
             try {
                 modelo.cargarDatosDesdeArchivo(archivo);
-
                 vista.mostrarContenido(modelo.getContenido());
-//                vista.mostrarEstadoInicial(modelo.getEstadoInicial());
-//                vista.mostrarEstadosAceptacionTabla(modelo.getEstadosList());
-//                vista.mostrarSimboloEnTabla(modelo.getSimbolosList());
-//                
-//                vista.mostrarTransicionesEnTabla(
-//                    modelo.getEstadosList(), 
-//                    modelo.getSimbolosList(), 
-//                    modelo.getMatrizTransiciones()
-//                );
-
+                
             } catch (IOException e) {
 
                 JOptionPane.showMessageDialog(vista, "Error al abrir archivo", "Error", JOptionPane.ERROR_MESSAGE);
@@ -74,7 +68,7 @@ public class ControladorDocumento implements ActionListener {
                 modelo.guardarDatosArchivo(archivoActual, contenido);
                 JOptionPane.showMessageDialog(vista, "Archivo Guardado", "Guardar", JOptionPane.INFORMATION_MESSAGE);
             } else {
-                  guardarComoArchivo();
+                guardarComoArchivo();
 //                JOptionPane.showMessageDialog(vista, "No hay ningun archivo abierto", "Archivo no seleccionado", JOptionPane.INFORMATION_MESSAGE);
             }
 
@@ -108,6 +102,27 @@ public class ControladorDocumento implements ActionListener {
 
             JOptionPane.showMessageDialog(vista, "Error al guardar el archivo", "Error", JOptionPane.ERROR_MESSAGE);
 
+        }
+    }
+
+    public void cerrarArchivo() {
+        DefaultTableModel modeloVacio = new DefaultTableModel();
+        vista.Areatxt.setText("");
+        vista.txtEstadoIncial.setText("");
+        vista.tblEstados.setModel(modeloVacio);
+        vista.tblSimbolos.setModel(modeloVacio);
+        vista.tblTransiciones.setModel(modeloVacio);
+        System.out.println("limpiar");
+    }
+
+    public void nuevoArchivo() {
+        if (vista.Areatxt != null) {
+            JOptionPane.showConfirmDialog(vista, "¿Esta seguro de crear un nuevo archivo?, el trabajo no guardado se perderá", "Nuevo txt", JOptionPane.YES_NO_OPTION);
+            if(JOptionPane.YES_NO_OPTION == 0){
+                cerrarArchivo();
+            }
+        } else {
+            cerrarArchivo();
         }
     }
 
