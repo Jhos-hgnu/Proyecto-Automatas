@@ -1,0 +1,12 @@
+Simbolos: 0,1
+Estados: Q0,Q1,Q2,Q3
+Estado inicial: Q0
+Estados de aceptación: Q3
+Transiciones:
+Q0,Q1
+Q1,Q2
+Q2,Q3
+Q3,Q0
+Cadenas a analizar:
+0,0,0
+1,1,1,0

@@ -1,0 +1,14 @@
+Simbolos: x,y
+Estados: A,B,C,D,E
+Estado inicial: A
+Estados de aceptación: E
+Transiciones:
+A,B
+B,C
+C,D
+D,E
+B,E
+C,E
+Cadenas a analizar:
+x,x,y
+y,x,y,x
