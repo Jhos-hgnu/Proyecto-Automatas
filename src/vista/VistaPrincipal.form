@@ -99,17 +99,17 @@
             <Property name="text" type="java.lang.String" value="Ejemplos"/>
           </Properties>
           <SubComponents>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem1">
+            <MenuItem class="javax.swing.JMenuItem" name="ItemEjemplo1">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Ejemplo1"/>
               </Properties>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem2">
+            <MenuItem class="javax.swing.JMenuItem" name="ItemEjemplo2">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Ejemplo2"/>
               </Properties>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem3">
+            <MenuItem class="javax.swing.JMenuItem" name="ItemEjemplo3">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Ejemplo3"/>
               </Properties>

@@ -41,6 +41,9 @@ public class ControladorDocumento implements ActionListener {
         vista.getBtnGuardarComo().addActionListener(e -> guardarComoArchivo());
         vista.getBtnCerrar().addActionListener(e -> cerrarArchivo());
         vista.getBtnNuevo().addActionListener(e -> nuevoArchivo());
+        vista.getBtnEjemplo1().addActionListener(e -> abrirArchivoEjem("src/ejemplosdata/AFD_ejemplo1.txt"));
+        vista.getBtnEjemplo2().addActionListener(e -> abrirArchivoEjem("src/ejemplosdata/AFD_ejemplo2.txt"));
+        vista.getBtnEjemplo3().addActionListener(e -> abrirArchivoEjem("src/ejemplosdata/AFD_ejemplo3.txt"));
     }
 
     public void abrirArchivo() {
@@ -50,13 +53,27 @@ public class ControladorDocumento implements ActionListener {
             try {
                 modelo.cargarDatosDesdeArchivo(archivo);
                 vista.mostrarContenido(modelo.getContenido());
-                
+
             } catch (IOException e) {
 
-                JOptionPane.showMessageDialog(vista, "Error al abrir archivo", "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(vista, "Error al abrir archivo", "Error Abrir-Archivo", JOptionPane.ERROR_MESSAGE);
             }
         }
 
+    }
+
+    public void abrirArchivoEjem(String rutaArchivo) {
+        File archivo = new File(rutaArchivo);
+        
+            try {
+                System.out.println("ruta: " + rutaArchivo );
+                modelo.cargarDatosDesdeArchivo(archivo);
+                vista.mostrarContenido(modelo.getContenido());
+            } catch (IOException e) {
+                JOptionPane.showMessageDialog(vista, "Error al abrir archivo", "Error Abrir-Archivo", JOptionPane.ERROR_MESSAGE);
+
+            }
+        
     }
 
     public void guardarArchivo() {
@@ -118,7 +135,7 @@ public class ControladorDocumento implements ActionListener {
     public void nuevoArchivo() {
         if (vista.Areatxt != null) {
             JOptionPane.showConfirmDialog(vista, "¿Esta seguro de crear un nuevo archivo?, el trabajo no guardado se perderá", "Nuevo txt", JOptionPane.YES_NO_OPTION);
-            if(JOptionPane.YES_NO_OPTION == 0){
+            if (JOptionPane.YES_NO_OPTION == 0) {
                 cerrarArchivo();
             }
         } else {

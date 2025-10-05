@@ -164,6 +164,8 @@ public class VistaPrincipal extends javax.swing.JFrame {
         return Areatxt.getText();
     }
 
+    
+    //Menu File
     public JMenuItem getBtnNuevo(){
         return  ItemNuevo;
     }
@@ -184,13 +186,32 @@ public class VistaPrincipal extends javax.swing.JFrame {
         return ItemGuardarComo;
     }
 
-    public JMenuItem getBtnAcercaDe() {
-        return ItemAcercaDe;
-    }
+    
 
     public JButton getBtnProbartxt() {
         return btnProbartxt;
     }
+    
+    //Menu Información
+    public JMenuItem getBtnAcercaDe() {
+        return ItemAcercaDe;
+    }
+    
+    
+    //Menu Ejemplos
+    public JMenuItem getBtnEjemplo1(){
+        return ItemEjemplo1;
+    }
+    
+    public JMenuItem getBtnEjemplo2(){
+        return ItemEjemplo2;
+    }
+    
+    public JMenuItem getBtnEjemplo3(){
+        return ItemEjemplo3;
+    }
+    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -230,9 +251,9 @@ public class VistaPrincipal extends javax.swing.JFrame {
         ItemGuardar = new javax.swing.JMenuItem();
         ItemGuardarComo = new javax.swing.JMenuItem();
         MenuEjemplos = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        jMenuItem2 = new javax.swing.JMenuItem();
-        jMenuItem3 = new javax.swing.JMenuItem();
+        ItemEjemplo1 = new javax.swing.JMenuItem();
+        ItemEjemplo2 = new javax.swing.JMenuItem();
+        ItemEjemplo3 = new javax.swing.JMenuItem();
         MenuInformacion = new javax.swing.JMenu();
         ItemAcercaDe = new javax.swing.JMenuItem();
         ItemManualTec = new javax.swing.JMenuItem();
@@ -463,14 +484,14 @@ public class VistaPrincipal extends javax.swing.JFrame {
 
         MenuEjemplos.setText("Ejemplos");
 
-        jMenuItem1.setText("Ejemplo1");
-        MenuEjemplos.add(jMenuItem1);
+        ItemEjemplo1.setText("Ejemplo1");
+        MenuEjemplos.add(ItemEjemplo1);
 
-        jMenuItem2.setText("Ejemplo2");
-        MenuEjemplos.add(jMenuItem2);
+        ItemEjemplo2.setText("Ejemplo2");
+        MenuEjemplos.add(ItemEjemplo2);
 
-        jMenuItem3.setText("Ejemplo3");
-        MenuEjemplos.add(jMenuItem3);
+        ItemEjemplo3.setText("Ejemplo3");
+        MenuEjemplos.add(ItemEjemplo3);
 
         MenuBarra.add(MenuEjemplos);
 
@@ -550,6 +571,9 @@ public class VistaPrincipal extends javax.swing.JFrame {
     public javax.swing.JMenuItem ItemAbrir;
     private javax.swing.JMenuItem ItemAcercaDe;
     public javax.swing.JMenuItem ItemCerrar;
+    private javax.swing.JMenuItem ItemEjemplo1;
+    private javax.swing.JMenuItem ItemEjemplo2;
+    private javax.swing.JMenuItem ItemEjemplo3;
     public javax.swing.JMenuItem ItemGuardar;
     public javax.swing.JMenuItem ItemGuardarComo;
     private javax.swing.JMenuItem ItemManualTec;
@@ -567,9 +591,6 @@ public class VistaPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JScrollPane jScrollPane1;
     public javax.swing.JScrollPane scrollCadenas;
