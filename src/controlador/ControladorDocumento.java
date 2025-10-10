@@ -134,12 +134,12 @@ public class ControladorDocumento implements ActionListener {
 
     public void nuevoArchivo() {
         if (vista.Areatxt != null) {
-            JOptionPane.showConfirmDialog(vista, "¿Esta seguro de crear un nuevo archivo?, el trabajo no guardado se perderá", "Nuevo txt", JOptionPane.YES_NO_OPTION);
-            if (JOptionPane.YES_NO_OPTION == 0) {
+            int opcion = JOptionPane.showConfirmDialog(vista, "¿Esta seguro de crear un nuevo archivo?, el trabajo no guardado se perderá", "Nuevo txt", JOptionPane.YES_NO_OPTION);
+            if (opcion == JOptionPane.YES_NO_OPTION) {
                 cerrarArchivo();
             }
         } else {
-            cerrarArchivo();
+            //cerrarArchivo();
         }
     }
 
