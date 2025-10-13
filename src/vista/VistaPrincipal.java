@@ -110,7 +110,19 @@ public class VistaPrincipal extends javax.swing.JFrame {
         }
     }
 
-    public void mostrarCadenasEnTabla() {
+    public void mostrarCadenasEnTabla(List<String> cadenas) {
+        modeloTablaCadenas.setRowCount(0);
+        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+        centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
+        System.out.println("Cadenas " + cadenas);
+        
+        
+        for(int i = 0; i < cadenas.size(); i++){
+            
+            modeloTablaCadenas.addRow(new Object[] {i + 1, cadenas.get(i)});
+        }
+        
+        tblcadenas.setModel(modeloTablaCadenas);
 
     }
 
@@ -144,6 +156,9 @@ public class VistaPrincipal extends javax.swing.JFrame {
             }
 
             tblTransiciones.setModel(modeloTablaTransiciones);
+            tblTransiciones.getColumnModel().getColumn(0).setCellRenderer(centerRenderer);
+            tblTransiciones.getColumnModel().getColumn(1).setCellRenderer(centerRenderer);
+            tblTransiciones.getColumnModel().getColumn(2).setCellRenderer(centerRenderer);
             scrollPaneTransiciones.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
             scrollPaneTransiciones.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 
@@ -238,12 +253,14 @@ public class VistaPrincipal extends javax.swing.JFrame {
         tblSimbolos = new javax.swing.JTable();
         scrollPaneEstadosAceptacion = new javax.swing.JScrollPane();
         tblEstados = new javax.swing.JTable();
-        jLabel6 = new javax.swing.JLabel();
-        scrollCadenas = new javax.swing.JScrollPane();
-        contenedorTablaCadenasAnalizar = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
         btnProbartxt = new javax.swing.JButton();
+        jPanel1 = new javax.swing.JPanel();
+        jLabel6 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
+        scrollCadenas = new javax.swing.JScrollPane();
+        tblcadenas = new javax.swing.JTable();
         MenuBarra = new javax.swing.JMenuBar();
+        jMenu1 = new javax.swing.JMenu();
         MenuFile = new javax.swing.JMenu();
         ItemNuevo = new javax.swing.JMenuItem();
         ItemAbrir = new javax.swing.JMenuItem();
@@ -263,6 +280,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
         setMinimumSize(new java.awt.Dimension(1080, 720));
 
         ContenedorPrincipal.setBackground(new java.awt.Color(236, 239, 241));
+        ContenedorPrincipal.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         ContenedorScrollP.setBackground(new java.awt.Color(204, 204, 204));
         ContenedorScrollP.setForeground(new java.awt.Color(204, 204, 204));
@@ -272,14 +290,18 @@ public class VistaPrincipal extends javax.swing.JFrame {
         Areatxt.setRows(5);
         ContenedorScrollP.setViewportView(Areatxt);
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        ContenedorPrincipal.add(ContenedorScrollP, new org.netbeans.lib.awtextra.AbsoluteConstraints(276, 47, 430, 302));
+
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(0, 0, 0));
         jLabel1.setText("Estado Inicial");
+        ContenedorPrincipal.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(606, 404, -1, 35));
 
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel2.setText("Área de Texto");
+        ContenedorPrincipal.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(276, 10, 194, -1));
 
         txtEstadoIncial.setEditable(false);
         txtEstadoIncial.setBackground(new java.awt.Color(204, 204, 204));
@@ -293,19 +315,23 @@ public class VistaPrincipal extends javax.swing.JFrame {
                 txtEstadoIncialActionPerformed(evt);
             }
         });
+        ContenedorPrincipal.add(txtEstadoIncial, new org.netbeans.lib.awtextra.AbsoluteConstraints(612, 445, 95, -1));
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(0, 0, 0));
         jLabel3.setText("Estados");
+        ContenedorPrincipal.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(276, 406, -1, -1));
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(0, 0, 0));
         jLabel4.setText("Símbolos");
         jLabel4.setToolTipText("");
+        ContenedorPrincipal.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(276, 564, -1, -1));
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(0, 0, 0));
         jLabel5.setText("Transiciones");
+        ContenedorPrincipal.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 20, 177, -1));
 
         tblTransiciones.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -322,6 +348,8 @@ public class VistaPrincipal extends javax.swing.JFrame {
 
         scrollPaneTransiciones.setViewportView(jScrollPane1);
 
+        ContenedorPrincipal.add(scrollPaneTransiciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 50, 674, 125));
+
         tblSimbolos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {},
@@ -334,6 +362,8 @@ public class VistaPrincipal extends javax.swing.JFrame {
             }
         ));
         scrollPaneSimbolos.setViewportView(tblSimbolos);
+
+        ContenedorPrincipal.add(scrollPaneSimbolos, new org.netbeans.lib.awtextra.AbsoluteConstraints(276, 595, 275, 114));
 
         tblEstados.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -348,112 +378,72 @@ public class VistaPrincipal extends javax.swing.JFrame {
         ));
         scrollPaneEstadosAceptacion.setViewportView(tblEstados);
 
+        ContenedorPrincipal.add(scrollPaneEstadosAceptacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(276, 437, 275, 115));
+
+        btnProbartxt.setText("Probar txt");
+        ContenedorPrincipal.add(btnProbartxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(276, 355, -1, -1));
+
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+
         jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(0, 0, 0));
         jLabel6.setText("Cadenas a Analizar");
 
-        javax.swing.GroupLayout contenedorTablaCadenasAnalizarLayout = new javax.swing.GroupLayout(contenedorTablaCadenasAnalizar);
-        contenedorTablaCadenasAnalizar.setLayout(contenedorTablaCadenasAnalizarLayout);
-        contenedorTablaCadenasAnalizarLayout.setHorizontalGroup(
-            contenedorTablaCadenasAnalizarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 395, Short.MAX_VALUE)
-        );
-        contenedorTablaCadenasAnalizarLayout.setVerticalGroup(
-            contenedorTablaCadenasAnalizarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 173, Short.MAX_VALUE)
-        );
-
-        scrollCadenas.setViewportView(contenedorTablaCadenasAnalizar);
-
         jButton1.setText("Probar Cadena");
 
-        btnProbartxt.setText("Probar txt");
+        tblcadenas.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {},
+                {},
+                {},
+                {}
+            },
+            new String [] {
 
-        javax.swing.GroupLayout ContenedorPrincipalLayout = new javax.swing.GroupLayout(ContenedorPrincipal);
-        ContenedorPrincipal.setLayout(ContenedorPrincipalLayout);
-        ContenedorPrincipalLayout.setHorizontalGroup(
-            ContenedorPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(ContenedorPrincipalLayout.createSequentialGroup()
-                .addGap(201, 201, 201)
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
+            }
+        ));
+        scrollCadenas.setViewportView(tblcadenas);
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton1)
+                    .addComponent(jLabel6))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(ContenedorPrincipalLayout.createSequentialGroup()
-                .addGap(16, 16, 16)
-                .addGroup(ContenedorPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ContenedorPrincipalLayout.createSequentialGroup()
-                        .addComponent(ContenedorScrollP, javax.swing.GroupLayout.DEFAULT_SIZE, 574, Short.MAX_VALUE)
-                        .addGap(38, 38, 38)
-                        .addGroup(ContenedorPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtEstadoIncial, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel1))
-                        .addGap(143, 143, 143)
-                        .addGroup(ContenedorPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel6)
-                            .addComponent(scrollCadenas, javax.swing.GroupLayout.PREFERRED_SIZE, 401, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton1))
-                        .addGap(101, 101, 101))
-                    .addGroup(ContenedorPrincipalLayout.createSequentialGroup()
-                        .addGroup(ContenedorPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel5)
-                            .addComponent(btnProbartxt)
-                            .addComponent(scrollPaneTransiciones, javax.swing.GroupLayout.PREFERRED_SIZE, 460, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(ContenedorPrincipalLayout.createSequentialGroup()
-                                .addGroup(ContenedorPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(scrollPaneEstadosAceptacion, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel3))
-                                .addGroup(ContenedorPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(ContenedorPrincipalLayout.createSequentialGroup()
-                                        .addGap(24, 24, 24)
-                                        .addComponent(scrollPaneSimbolos, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(ContenedorPrincipalLayout.createSequentialGroup()
-                                        .addGap(32, 32, 32)
-                                        .addComponent(jLabel4)))))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-        );
-        ContenedorPrincipalLayout.setVerticalGroup(
-            ContenedorPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ContenedorPrincipalLayout.createSequentialGroup()
-                .addGroup(ContenedorPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(ContenedorPrincipalLayout.createSequentialGroup()
-                        .addGap(81, 81, 81)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(txtEstadoIncial, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel5)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
-                    .addGroup(ContenedorPrincipalLayout.createSequentialGroup()
-                        .addGap(32, 32, 32)
-                        .addComponent(jLabel2)
-                        .addGap(18, 18, 18)
-                        .addComponent(ContenedorScrollP, javax.swing.GroupLayout.DEFAULT_SIZE, 247, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnProbartxt)
-                        .addGap(35, 35, 35)
-                        .addGroup(ContenedorPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel3))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(ContenedorPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(scrollPaneEstadosAceptacion, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(scrollPaneSimbolos, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(37, 37, 37))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, ContenedorPrincipalLayout.createSequentialGroup()
-                        .addGap(34, 34, 34)
-                        .addComponent(jLabel6)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(scrollCadenas, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addComponent(scrollPaneTransiciones, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(8, Short.MAX_VALUE)
+                .addComponent(scrollCadenas, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(106, 106, 106)
+                .addComponent(jLabel6)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(scrollCadenas, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jButton1)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        ContenedorPrincipal.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 715));
 
         MenuBarra.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        MenuBarra.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        MenuBarra.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+
+        jMenu1.setText("Simulador de Autómatas     ");
+        jMenu1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jMenu1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        MenuBarra.add(jMenu1);
 
         MenuFile.setText("File");
+        MenuFile.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         ItemNuevo.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_N, java.awt.event.InputEvent.CTRL_DOWN_MASK));
         ItemNuevo.setText("Nuevo txt");
@@ -483,6 +473,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
         MenuBarra.add(MenuFile);
 
         MenuEjemplos.setText("Ejemplos");
+        MenuEjemplos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         ItemEjemplo1.setText("Ejemplo1");
         MenuEjemplos.add(ItemEjemplo1);
@@ -514,7 +505,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(ContenedorPrincipal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(ContenedorPrincipal, javax.swing.GroupLayout.DEFAULT_SIZE, 1520, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -583,7 +574,6 @@ public class VistaPrincipal extends javax.swing.JFrame {
     public javax.swing.JMenu MenuFile;
     private javax.swing.JMenu MenuInformacion;
     private javax.swing.JButton btnProbartxt;
-    private javax.swing.JPanel contenedorTablaCadenasAnalizar;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -591,7 +581,9 @@ public class VistaPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuItem jMenuItem6;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     public javax.swing.JScrollPane scrollCadenas;
     public javax.swing.JScrollPane scrollPaneEstadosAceptacion;
@@ -600,6 +592,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
     public javax.swing.JTable tblEstados;
     public javax.swing.JTable tblSimbolos;
     public javax.swing.JTable tblTransiciones;
+    private javax.swing.JTable tblcadenas;
     public javax.swing.JTextField txtEstadoIncial;
     // End of variables declaration//GEN-END:variables
 

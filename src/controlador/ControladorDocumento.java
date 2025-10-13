@@ -159,6 +159,7 @@ public class ControladorDocumento implements ActionListener {
                 vista.mostrarEstadoInicial(modelo.getEstadoInicial());
                 vista.mostrarEstadosAceptacionTabla(modelo.getEstadosList());
                 vista.mostrarSimboloEnTabla(modelo.getSimbolosList());
+                vista.mostrarCadenasEnTabla(modelo.getCadenasList());
 
                 vista.mostrarTransicionesEnTabla(
                         modelo.getEstadosList(),

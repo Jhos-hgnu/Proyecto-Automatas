@@ -28,6 +28,7 @@ public class ModeloDocumento {
     private List<String> simbolosList;
     private List<String> estadosList;
     private List<String[]> transicionesList;
+    private List<String> cadenasList;
     private String[][] matrizTransiciones;
 
     public void cargarDatosDesdeArchivo(File archivo) throws IOException {
@@ -75,6 +76,11 @@ public class ModeloDocumento {
             this.transicionesList = procesarTransiciones(transicionesStr);
 
             this.matrizTransiciones = crearMatrizTransiciones();
+
+            String cadenas = ArchivoTexto.extraerValorPatronEnArchivo(contenido, "Cadenas a analizar:");
+            this.cadenasList = procesarLista(cadenas);
+
+            
         }
     }
 
@@ -150,5 +156,11 @@ public class ModeloDocumento {
         return matrizTransiciones;
     }
 
+    public List<String> getCadenasList() {
+        return cadenasList;
+    }
 
+    
+    
+    
 }
