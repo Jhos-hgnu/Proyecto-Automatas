@@ -77,10 +77,10 @@ public class ModeloDocumento {
 
             this.matrizTransiciones = crearMatrizTransiciones();
 
-            String cadenas = ArchivoTexto.extraerValorPatronEnArchivo(contenido, "Cadenas a analizar:");
-            this.cadenasList = procesarLista(cadenas);
-
-            
+            List<String> cadenas = ArchivoTexto.extraerCadenasAnalizar(contenido, "Cadenas a analizar:");
+            this.cadenasList = cadenas;
+            System.out.println("Cadenas del modelo " + cadenas);
+            System.out.println("Hola");
         }
     }
 

@@ -10,8 +10,10 @@ import java.awt.Image;
 import java.awt.Toolkit;
 import java.util.List;
 import javax.swing.BorderFactory;
+import javax.swing.DefaultCellEditor;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JMenuItem;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -59,13 +61,44 @@ public class VistaPrincipal extends javax.swing.JFrame {
         modeloTablaTransiciones = new DefaultTableModel();
 
         //Tabla de Cadenas
-        modeloTablaCadenas = new DefaultTableModel();
-        modeloTablaCadenas.addColumn("No");
+        modeloTablaCadenas = new DefaultTableModel() {
+
+            @Override
+            public Class<?> getColumnClass(int columnIndex) {
+                switch (columnIndex) {
+                    case 0:
+                        return String.class;
+                    case 1:
+                        return String.class;
+                    case 2:
+                        return Boolean.class;
+                    default:
+                        return Object.class;
+                }
+            }
+
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return column == 2;
+            }
+
+            @Override
+            public void setValueAt(Object aValue, int row, int column) {
+                if (column == 2 && aValue instanceof Boolean && (Boolean) aValue) {
+                    for (int i = 0; i < getRowCount(); i++) {
+                        if (i != row) {
+                            super.setValueAt(false, i, column);
+                        }
+                    }
+                }
+                super.setValueAt(aValue, row, column);
+            }
+
+        };
+
         modeloTablaCadenas.addColumn("Cadenas a Analizar");
-//        tablaEstadosAceptacion = new JTable(modeloTablaEstados);
-//
-//        tablaEstadosAceptacion.setPreferredScrollableViewportSize(new Dimension(10, 155));
-//        scrollPaneEstadosAceptacion.setPreferredSize(new Dimension(250, 175));
+        modeloTablaCadenas.addColumn("Válida");
+        modeloTablaCadenas.addColumn("Seleccionada");
 
         if (modeloTablaEstados.getRowCount() == 0) {
             scrollPaneTransiciones.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_NEVER);
@@ -88,7 +121,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
             tblEstados.setModel(modeloTablaEstados);
             tblEstados.getColumnModel().getColumn(0).setCellRenderer(centerRenderer);
             tblEstados.getColumnModel().getColumn(1).setCellRenderer(centerRenderer);
-            
+
         }
     }
 
@@ -101,27 +134,29 @@ public class VistaPrincipal extends javax.swing.JFrame {
             for (int i = 0; i < simbolos.size(); i++) {
                 modeloTablaSimbolos.addRow(new Object[]{i + 1, simbolos.get(i)});
             }
-            
+
             tblSimbolos.setModel(modeloTablaSimbolos);
             tblSimbolos.getColumnModel().getColumn(0).setCellRenderer(centerRenderer);
             tblSimbolos.getColumnModel().getColumn(1).setCellRenderer(centerRenderer);
 
-            
         }
     }
 
     public void mostrarCadenasEnTabla(List<String> cadenas) {
         modeloTablaCadenas.setRowCount(0);
+
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
         centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
         System.out.println("Cadenas " + cadenas);
-        
-        
-        for(int i = 0; i < cadenas.size(); i++){
-            
-            modeloTablaCadenas.addRow(new Object[] {i + 1, cadenas.get(i)});
+
+        if (cadenas != null && !cadenas.isEmpty()) {
+            for (String cadena : cadenas) {
+                modeloTablaCadenas.addRow(new Object[]{
+                    cadena, "", false
+                });
+            }
         }
-        
+
         tblcadenas.setModel(modeloTablaCadenas);
 
     }
@@ -179,12 +214,11 @@ public class VistaPrincipal extends javax.swing.JFrame {
         return Areatxt.getText();
     }
 
-    
     //Menu File
-    public JMenuItem getBtnNuevo(){
-        return  ItemNuevo;
+    public JMenuItem getBtnNuevo() {
+        return ItemNuevo;
     }
-    
+
     public JMenuItem getBtnAbrir() {
         return ItemAbrir;
     }
@@ -201,32 +235,27 @@ public class VistaPrincipal extends javax.swing.JFrame {
         return ItemGuardarComo;
     }
 
-    
-
     public JButton getBtnProbartxt() {
         return btnProbartxt;
     }
-    
+
     //Menu Información
     public JMenuItem getBtnAcercaDe() {
         return ItemAcercaDe;
     }
-    
-    
+
     //Menu Ejemplos
-    public JMenuItem getBtnEjemplo1(){
+    public JMenuItem getBtnEjemplo1() {
         return ItemEjemplo1;
     }
-    
-    public JMenuItem getBtnEjemplo2(){
+
+    public JMenuItem getBtnEjemplo2() {
         return ItemEjemplo2;
     }
-    
-    public JMenuItem getBtnEjemplo3(){
+
+    public JMenuItem getBtnEjemplo3() {
         return ItemEjemplo3;
     }
-    
-    
 
     /**
      * This method is called from within the constructor to initialize the form.

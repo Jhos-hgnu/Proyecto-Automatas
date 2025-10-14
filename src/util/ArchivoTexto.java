@@ -11,6 +11,8 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
@@ -53,7 +55,7 @@ public class ArchivoTexto {
         }
 
     }
-    
+
 //    public static void sobreEscribirArchivo(String contenido) {
 //
 //        if (archivoAbierto == null) {
@@ -68,9 +70,9 @@ public class ArchivoTexto {
 //    }
     public static File seleccionarArchivoAbrir() {
         JFileChooser fileChooser = new JFileChooser();
-       
+
         fileChooser.setDialogTitle("Abrir archivo txt");
-       
+
         FileNameExtensionFilter filtro = new FileNameExtensionFilter("Archivos de texto (*.txt)", "txt");
 
         fileChooser.setFileFilter(filtro);
@@ -91,34 +93,57 @@ public class ArchivoTexto {
             }
         }
         return "";
-        
-        
-        
     }
-    
-        public static String extraerBloqueTransiciones(String contenido) {
+
+    public static List<String> extraerCadenasAnalizar(String contenido, String patron) {
+
+        List<String> cadenas = new ArrayList<>();
+        String[] lineas = contenido.split("\n");
+        boolean patronEncontrado = false;
+
+        for (String linea : lineas) {
+            linea = linea.trim();
+
+            if (linea.startsWith(patron)) {
+                patronEncontrado = true;
+                continue;
+            }
+            
+            if(patronEncontrado) {
+                if(linea.isEmpty()){
+                    break;
+                }
+                cadenas.add(linea);
+            }
+
+        }
+
+        return cadenas;
+    }
+
+    public static String extraerBloqueTransiciones(String contenido) {
         StringBuilder bloque = new StringBuilder();
         boolean enTransiciones = false;
-        
+
         String[] lineas = contenido.split("\n");
         for (String linea : lineas) {
             linea = linea.trim();
-            
+
             if (linea.equals("Transiciones:")) {
                 enTransiciones = true;
                 continue;
             }
-            
+
             if (enTransiciones) {
-                if (linea.isEmpty() || linea.equals("Cadenas a analizar:")){
+                if (linea.isEmpty() || linea.equals("Cadenas a analizar:")) {
                     break;
                 }
                 bloque.append(linea).append("\n");
             }
-            
+
         }
 
-           return bloque.toString();
+        return bloque.toString();
     }
 
     public static void mostrarError(String mensaje, String nombre) {
