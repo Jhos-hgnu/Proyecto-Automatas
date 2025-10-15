@@ -288,6 +288,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         scrollCadenas = new javax.swing.JScrollPane();
         tblcadenas = new javax.swing.JTable();
+        txtElementoCadena = new javax.swing.JTextField();
         MenuBarra = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         MenuFile = new javax.swing.JMenu();
@@ -319,18 +320,18 @@ public class VistaPrincipal extends javax.swing.JFrame {
         Areatxt.setRows(5);
         ContenedorScrollP.setViewportView(Areatxt);
 
-        ContenedorPrincipal.add(ContenedorScrollP, new org.netbeans.lib.awtextra.AbsoluteConstraints(276, 47, 430, 302));
+        ContenedorPrincipal.add(ContenedorScrollP, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 50, 430, 302));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(0, 0, 0));
         jLabel1.setText("Estado Inicial");
-        ContenedorPrincipal.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(606, 404, -1, 35));
+        ContenedorPrincipal.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 390, -1, 35));
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(0, 0, 0));
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel2.setText("Área de Texto");
-        ContenedorPrincipal.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(276, 10, 194, -1));
+        ContenedorPrincipal.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 20, 194, -1));
 
         txtEstadoIncial.setEditable(false);
         txtEstadoIncial.setBackground(new java.awt.Color(204, 204, 204));
@@ -344,18 +345,18 @@ public class VistaPrincipal extends javax.swing.JFrame {
                 txtEstadoIncialActionPerformed(evt);
             }
         });
-        ContenedorPrincipal.add(txtEstadoIncial, new org.netbeans.lib.awtextra.AbsoluteConstraints(612, 445, 95, -1));
+        ContenedorPrincipal.add(txtEstadoIncial, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 430, 95, -1));
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(0, 0, 0));
         jLabel3.setText("Estados");
-        ContenedorPrincipal.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(276, 406, -1, -1));
+        ContenedorPrincipal.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 400, -1, -1));
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(0, 0, 0));
         jLabel4.setText("Símbolos");
         jLabel4.setToolTipText("");
-        ContenedorPrincipal.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(276, 564, -1, -1));
+        ContenedorPrincipal.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 560, -1, -1));
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(0, 0, 0));
@@ -392,7 +393,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
         ));
         scrollPaneSimbolos.setViewportView(tblSimbolos);
 
-        ContenedorPrincipal.add(scrollPaneSimbolos, new org.netbeans.lib.awtextra.AbsoluteConstraints(276, 595, 275, 114));
+        ContenedorPrincipal.add(scrollPaneSimbolos, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 590, 275, 114));
 
         tblEstados.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -407,10 +408,12 @@ public class VistaPrincipal extends javax.swing.JFrame {
         ));
         scrollPaneEstadosAceptacion.setViewportView(tblEstados);
 
-        ContenedorPrincipal.add(scrollPaneEstadosAceptacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(276, 437, 275, 115));
+        ContenedorPrincipal.add(scrollPaneEstadosAceptacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 430, 275, 115));
 
+        btnProbartxt.setBackground(new java.awt.Color(186, 186, 186));
+        btnProbartxt.setForeground(new java.awt.Color(255, 255, 255));
         btnProbartxt.setText("Probar txt");
-        ContenedorPrincipal.add(btnProbartxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(276, 355, -1, -1));
+        ContenedorPrincipal.add(btnProbartxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 360, -1, -1));
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -419,6 +422,9 @@ public class VistaPrincipal extends javax.swing.JFrame {
         jLabel6.setForeground(new java.awt.Color(0, 0, 0));
         jLabel6.setText("Cadenas a Analizar");
 
+        jButton1.setBackground(new java.awt.Color(0, 153, 255));
+        jButton1.setFont(new java.awt.Font("Sans Serif Collection", 0, 12)); // NOI18N
+        jButton1.setForeground(new java.awt.Color(255, 255, 255));
         jButton1.setText("Probar Cadena");
 
         tblcadenas.setModel(new javax.swing.table.DefaultTableModel(
@@ -441,13 +447,17 @@ public class VistaPrincipal extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton1)
-                    .addComponent(jLabel6))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(8, Short.MAX_VALUE)
-                .addComponent(scrollCadenas, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(scrollCadenas, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jButton1)
+                        .addGap(33, 33, 33)
+                        .addComponent(txtElementoCadena, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 19, Short.MAX_VALUE)))
                 .addContainerGap())
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(14, 14, 14)
+                .addComponent(jLabel6)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -457,15 +467,18 @@ public class VistaPrincipal extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(scrollCadenas, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jButton1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txtElementoCadena))
+                .addContainerGap(333, Short.MAX_VALUE))
         );
 
-        ContenedorPrincipal.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 715));
+        ContenedorPrincipal.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 260, 715));
 
         MenuBarra.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         MenuBarra.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
+        jMenu1.setForeground(new java.awt.Color(59, 130, 246));
         jMenu1.setText("Simulador de Autómatas     ");
         jMenu1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jMenu1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -473,6 +486,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
 
         MenuFile.setText("File");
         MenuFile.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        MenuFile.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
         ItemNuevo.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_N, java.awt.event.InputEvent.CTRL_DOWN_MASK));
         ItemNuevo.setText("Nuevo txt");
@@ -503,6 +517,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
 
         MenuEjemplos.setText("Ejemplos");
         MenuEjemplos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        MenuEjemplos.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
         ItemEjemplo1.setText("Ejemplo1");
         MenuEjemplos.add(ItemEjemplo1);
@@ -516,6 +531,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
         MenuBarra.add(MenuEjemplos);
 
         MenuInformacion.setText("Información");
+        MenuInformacion.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
         ItemAcercaDe.setText("Acerca de:");
         MenuInformacion.add(ItemAcercaDe);
@@ -622,6 +638,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
     public javax.swing.JTable tblSimbolos;
     public javax.swing.JTable tblTransiciones;
     private javax.swing.JTable tblcadenas;
+    private javax.swing.JTextField txtElementoCadena;
     public javax.swing.JTextField txtEstadoIncial;
     // End of variables declaration//GEN-END:variables
 
