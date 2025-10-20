@@ -316,7 +316,11 @@ public class VistaPrincipal extends javax.swing.JFrame {
         btnProbarCadena = new javax.swing.JButton();
         scrollCadenas = new javax.swing.JScrollPane();
         tblcadenas = new javax.swing.JTable();
+        jTextField1 = new javax.swing.JTextField();
         txtElementoCadena = new javax.swing.JTextField();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        lblImageAFD = new javax.swing.JLabel();
         MenuBarra = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         MenuFile = new javax.swing.JMenu();
@@ -338,6 +342,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
         setMinimumSize(new java.awt.Dimension(1080, 720));
 
         ContenedorPrincipal.setBackground(new java.awt.Color(236, 239, 241));
+        ContenedorPrincipal.setForeground(new java.awt.Color(57, 90, 175));
         ContenedorPrincipal.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         ContenedorScrollP.setBackground(new java.awt.Color(204, 204, 204));
@@ -390,6 +395,8 @@ public class VistaPrincipal extends javax.swing.JFrame {
         jLabel5.setForeground(new java.awt.Color(0, 0, 0));
         jLabel5.setText("Transiciones");
         ContenedorPrincipal.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 20, 177, -1));
+
+        jScrollPane1.setForeground(new java.awt.Color(40, 40, 40));
 
         tblTransiciones.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -468,9 +475,6 @@ public class VistaPrincipal extends javax.swing.JFrame {
         ));
         scrollCadenas.setViewportView(tblcadenas);
 
-        txtElementoCadena.setFont(new java.awt.Font("Sans Serif Collection", 1, 18)); // NOI18N
-        txtElementoCadena.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -481,14 +485,12 @@ public class VistaPrincipal extends javax.swing.JFrame {
                     .addComponent(scrollCadenas, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(btnProbarCadena)
-                        .addGap(33, 33, 33)
-                        .addComponent(txtElementoCadena, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 19, Short.MAX_VALUE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(14, 14, 14)
                 .addComponent(jLabel6)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(81, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -498,13 +500,27 @@ public class VistaPrincipal extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(scrollCadenas, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnProbarCadena, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txtElementoCadena))
+                .addComponent(btnProbarCadena, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(318, Short.MAX_VALUE))
         );
 
         ContenedorPrincipal.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 260, 715));
+        ContenedorPrincipal.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(950, 240, 90, 50));
+
+        txtElementoCadena.setFont(new java.awt.Font("Sans Serif Collection", 1, 18)); // NOI18N
+        txtElementoCadena.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        ContenedorPrincipal.add(txtElementoCadena, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 240, 90, 50));
+
+        jLabel7.setFont(new java.awt.Font("Sans Serif Collection", 1, 12)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel7.setText("Símbolo Actual");
+        ContenedorPrincipal.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 210, -1, -1));
+
+        jLabel8.setFont(new java.awt.Font("Sans Serif Collection", 1, 12)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel8.setText("Estado Actual");
+        ContenedorPrincipal.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(950, 210, -1, 30));
+        ContenedorPrincipal.add(lblImageAFD, new org.netbeans.lib.awtextra.AbsoluteConstraints(900, 400, 580, 280));
 
         MenuBarra.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         MenuBarra.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -657,10 +673,14 @@ public class VistaPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextField jTextField1;
+    private javax.swing.JLabel lblImageAFD;
     public javax.swing.JScrollPane scrollCadenas;
     public javax.swing.JScrollPane scrollPaneEstadosAceptacion;
     public javax.swing.JScrollPane scrollPaneSimbolos;
