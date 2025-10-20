@@ -15,6 +15,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.SwingConstants;
@@ -201,6 +202,29 @@ public class VistaPrincipal extends javax.swing.JFrame {
 
     }
 
+    public void setTextoEnCampo(String texto) {
+        txtElementoCadena.setText(texto);
+        txtElementoCadena.removeAll();
+        txtElementoCadena.revalidate();
+        txtElementoCadena.repaint();
+    }
+
+    public String obtenerCadenaSeleccionada() {
+
+        if (modeloTablaCadenas.getRowCount() == 0) {
+            JOptionPane.showMessageDialog(this, "Tabla vacía", "Advertencia", JOptionPane.WARNING_MESSAGE);
+        } else {
+            for (int i = 0; i < tblcadenas.getRowCount(); i++) {
+                Boolean estaSeleccionada = (Boolean) modeloTablaCadenas.getValueAt(i, 2);
+                if (estaSeleccionada != null && estaSeleccionada) {
+                    return (String) modeloTablaCadenas.getValueAt(i, 0);
+                }
+            }
+        }
+
+        return null;
+    }
+
     //Metodos para el controlador
     public void mostrarContenido(String contenido) {
         Areatxt.setText(contenido);
@@ -257,6 +281,10 @@ public class VistaPrincipal extends javax.swing.JFrame {
         return ItemEjemplo3;
     }
 
+    public JButton getBtnProbarCadena() {
+        return btnProbarCadena;
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -285,7 +313,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
         btnProbartxt = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        btnProbarCadena = new javax.swing.JButton();
         scrollCadenas = new javax.swing.JScrollPane();
         tblcadenas = new javax.swing.JTable();
         txtElementoCadena = new javax.swing.JTextField();
@@ -422,10 +450,10 @@ public class VistaPrincipal extends javax.swing.JFrame {
         jLabel6.setForeground(new java.awt.Color(0, 0, 0));
         jLabel6.setText("Cadenas a Analizar");
 
-        jButton1.setBackground(new java.awt.Color(0, 153, 255));
-        jButton1.setFont(new java.awt.Font("Sans Serif Collection", 0, 12)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setText("Probar Cadena");
+        btnProbarCadena.setBackground(new java.awt.Color(0, 153, 255));
+        btnProbarCadena.setFont(new java.awt.Font("Sans Serif Collection", 0, 12)); // NOI18N
+        btnProbarCadena.setForeground(new java.awt.Color(255, 255, 255));
+        btnProbarCadena.setText("Probar Cadena");
 
         tblcadenas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -440,6 +468,9 @@ public class VistaPrincipal extends javax.swing.JFrame {
         ));
         scrollCadenas.setViewportView(tblcadenas);
 
+        txtElementoCadena.setFont(new java.awt.Font("Sans Serif Collection", 1, 18)); // NOI18N
+        txtElementoCadena.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -449,7 +480,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(scrollCadenas, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jButton1)
+                        .addComponent(btnProbarCadena)
                         .addGap(33, 33, 33)
                         .addComponent(txtElementoCadena, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 19, Short.MAX_VALUE)))
@@ -468,9 +499,9 @@ public class VistaPrincipal extends javax.swing.JFrame {
                 .addComponent(scrollCadenas, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnProbarCadena, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(txtElementoCadena))
-                .addContainerGap(333, Short.MAX_VALUE))
+                .addContainerGap(318, Short.MAX_VALUE))
         );
 
         ContenedorPrincipal.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 260, 715));
@@ -618,8 +649,8 @@ public class VistaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenu MenuEjemplos;
     public javax.swing.JMenu MenuFile;
     private javax.swing.JMenu MenuInformacion;
+    private javax.swing.JButton btnProbarCadena;
     private javax.swing.JButton btnProbartxt;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

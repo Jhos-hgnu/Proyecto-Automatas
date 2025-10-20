@@ -502,7 +502,7 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="scrollCadenas" pref="0" max="32767" attributes="0"/>
                           <Group type="102" attributes="0">
-                              <Component id="jButton1" min="-2" max="-2" attributes="0"/>
+                              <Component id="btnProbarCadena" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
                               <Component id="txtElementoCadena" min="-2" pref="75" max="-2" attributes="0"/>
                               <EmptySpace min="0" pref="19" max="32767" attributes="0"/>
@@ -526,10 +526,10 @@
                       <Component id="scrollCadenas" min="-2" pref="179" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="jButton1" max="32767" attributes="0"/>
+                          <Component id="btnProbarCadena" max="32767" attributes="0"/>
                           <Component id="txtElementoCadena" max="32767" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="333" max="32767" attributes="0"/>
+                      <EmptySpace pref="318" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -546,7 +546,7 @@
                 <Property name="text" type="java.lang.String" value="Cadenas a Analizar"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JButton" name="jButton1">
+            <Component class="javax.swing.JButton" name="btnProbarCadena">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="ff" green="99" red="0" type="rgb"/>
@@ -583,6 +583,12 @@
               </SubComponents>
             </Container>
             <Component class="javax.swing.JTextField" name="txtElementoCadena">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Sans Serif Collection" size="18" style="1"/>
+                </Property>
+                <Property name="horizontalAlignment" type="int" value="0"/>
+              </Properties>
             </Component>
           </SubComponents>
         </Container>

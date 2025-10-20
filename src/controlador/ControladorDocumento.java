@@ -8,6 +8,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -24,6 +27,9 @@ public class ControladorDocumento implements ActionListener {
 
     private ModeloDocumento modelo;
     private VistaPrincipal vista;
+    private List<String> elementosCadenaActual;
+    private int indiceElementoActual;
+    private String cadenaSeleccionadaActual;
 
     public ControladorDocumento(ModeloDocumento modelo, VistaPrincipal vista) {
         this.modelo = modelo;
@@ -44,6 +50,7 @@ public class ControladorDocumento implements ActionListener {
         vista.getBtnEjemplo1().addActionListener(e -> abrirArchivoEjem("src/ejemplosdata/AFD_ejemplo1.txt"));
         vista.getBtnEjemplo2().addActionListener(e -> abrirArchivoEjem("src/ejemplosdata/AFD_ejemplo2.txt"));
         vista.getBtnEjemplo3().addActionListener(e -> abrirArchivoEjem("src/ejemplosdata/AFD_ejemplo3.txt"));
+        vista.getBtnProbarCadena().addActionListener(e -> probarCadena());
     }
 
     public void abrirArchivo() {
@@ -64,16 +71,16 @@ public class ControladorDocumento implements ActionListener {
 
     public void abrirArchivoEjem(String rutaArchivo) {
         File archivo = new File(rutaArchivo);
-        
-            try {
-                System.out.println("ruta: " + rutaArchivo );
-                modelo.cargarDatosDesdeArchivo(archivo);
-                vista.mostrarContenido(modelo.getContenido());
-            } catch (IOException e) {
-                JOptionPane.showMessageDialog(vista, "Error al abrir archivo", "Error Abrir-Archivo", JOptionPane.ERROR_MESSAGE);
 
-            }
-        
+        try {
+            System.out.println("ruta: " + rutaArchivo);
+            modelo.cargarDatosDesdeArchivo(archivo);
+            vista.mostrarContenido(modelo.getContenido());
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(vista, "Error al abrir archivo", "Error Abrir-Archivo", JOptionPane.ERROR_MESSAGE);
+
+        }
+
     }
 
     public void guardarArchivo() {
@@ -180,6 +187,59 @@ public class ControladorDocumento implements ActionListener {
         VistaAcercaDe vistaInfo = new VistaAcercaDe();
         vistaInfo.setVisible(true);
 
+    }
+
+    public void probarCadena() {
+
+        String cadenaSeleccionada = vista.obtenerCadenaSeleccionada();
+
+        if (cadenaSeleccionada == null) {
+            JOptionPane.showMessageDialog(vista, "Selecciona una cadena de la tabla",
+                    "Advertencia", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        
+        if (elementosCadenaActual == null || !cadenaSeleccionada.equals(cadenaSeleccionadaActual)) {
+            iniciarNuevaCadena(cadenaSeleccionada);
+        }
+        
+        mostrarSiguienteElemento();
+
+    }
+    
+    
+    private void iniciarNuevaCadena(String cadena) {
+        
+        elementosCadenaActual = Arrays.stream(cadena.split(",")).map(String::trim).collect(Collectors.toList());
+        
+        cadenaSeleccionadaActual = cadena;
+        indiceElementoActual = 0;
+        
+        System.out.println("" + cadena);
+        
+    }
+    
+    private void mostrarSiguienteElemento() {
+        if(elementosCadenaActual != null && indiceElementoActual < elementosCadenaActual.size()) {
+            String elemento = elementosCadenaActual.get(indiceElementoActual);
+            
+            vista.setTextoEnCampo(elemento);
+            
+            
+            indiceElementoActual++;
+            
+            
+            if(indiceElementoActual >= elementosCadenaActual.size()) {
+                System.out.println("Fin de la cadena");
+                
+                
+                elementosCadenaActual = null;
+                cadenaSeleccionadaActual = null;
+            }
+            
+            
+            
+        }
     }
 
     //Método para limpiar elementos gráficos
