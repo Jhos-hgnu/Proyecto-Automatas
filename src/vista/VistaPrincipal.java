@@ -5,8 +5,12 @@
 package vista;
 
 import controlador.ControladorDocumento;
+import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Image;
+import java.awt.Point;
 import java.awt.Toolkit;
 import java.util.List;
 import javax.swing.BorderFactory;
@@ -21,8 +25,7 @@ import javax.swing.JTable;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableColumnModel;
-import modelo.ModeloDocumento;
+import javax.swing.table.TableColumn;
 
 /**
  *
@@ -225,6 +228,175 @@ public class VistaPrincipal extends javax.swing.JFrame {
         return null;
     }
 
+    public int obtenerIndiceCadenaSeleccionada() {
+        for (int i = 0; i < modeloTablaCadenas.getRowCount(); i++) {
+            Boolean estaSeleccionada = (Boolean) modeloTablaCadenas.getValueAt(i, 2);
+            if (estaSeleccionada != null && estaSeleccionada) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    
+    
+    //Metodos para colorear celdas tabla transiciones
+    public void limpiarColoresTabla() {
+        // Usar un renderer por defecto para todas las celdas
+        // Limpiar renderers de celdas
+        for (int i = 0; i < tblTransiciones.getColumnCount(); i++) {
+            tblTransiciones.getColumnModel().getColumn(i).setCellRenderer(new DefaultTableCellRenderer() {
+                @Override
+                public Component getTableCellRendererComponent(JTable table, Object value,
+                        boolean isSelected, boolean hasFocus, int row, int column) {
+                    Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+                    c.setBackground(Color.WHITE);
+                    c.setForeground(Color.BLACK);
+                    setHorizontalAlignment(SwingConstants.CENTER);
+                    return c;
+                }
+            });
+
+            // Limpiar renderers de encabezados
+            tblTransiciones.getColumnModel().getColumn(i).setHeaderRenderer(new DefaultTableCellRenderer() {
+                @Override
+                public Component getTableCellRendererComponent(JTable table, Object value,
+                        boolean isSelected, boolean hasFocus, int row, int column) {
+                    Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+                    c.setBackground(table.getTableHeader().getBackground());
+                    c.setForeground(table.getTableHeader().getForeground());
+                    setHorizontalAlignment(SwingConstants.CENTER);
+                    setFont(getFont().deriveFont(Font.PLAIN));
+                    return c;
+                }
+            });
+        }
+
+        tblTransiciones.repaint();
+        tblTransiciones.getTableHeader().repaint();
+    }
+
+    public void resaltarCelda(int fila, int columna, String estadoActual, String simboloActual) {
+        if (fila >= 0 && fila < tblTransiciones.getRowCount() && columna >= 0 && columna < tblTransiciones.getRowCount()) {
+
+            limpiarColoresTabla();
+
+            // 2. Aplicar renderer para solo el paso actual
+            tblTransiciones.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
+                @Override
+                public Component getTableCellRendererComponent(JTable table, Object value,
+                        boolean isSelected, boolean hasFocus, int row, int column) {
+                    Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+
+                    // Solo pintar la transición ACTUAL (intersección estado + símbolo)
+                    if (row == fila && column == columna) {
+                        c.setBackground(Color.YELLOW);
+                        c.setForeground(Color.BLACK);
+                    } // Solo pintar el estado ACTUAL en la primera columna
+                    else if (row == fila && column == 0) {
+                        c.setBackground(Color.CYAN);
+                        c.setForeground(Color.BLACK);
+                    } // Todas las demás celdas en blanco
+                    else {
+                        c.setBackground(Color.WHITE);
+                        c.setForeground(Color.BLACK);
+                    }
+
+                    setHorizontalAlignment(SwingConstants.CENTER);
+                    return c;
+                }
+            });
+
+            // 3. Pintar SOLO el encabezado del símbolo ACTUAL
+            resaltarEncabezadoSimbolo(columna);
+            resaltarCeldaTransicion(fila, columna);
+            resaltarEstadoColumna(fila);
+
+            tblTransiciones.getTableHeader().repaint();
+            tblTransiciones.repaint();
+
+        }
+    }
+
+    private void resaltarCeldaTransicion(int fila, int columna) {
+        // Renderer específico para la celda de transición
+        tblTransiciones.getColumnModel().getColumn(columna).setCellRenderer(new DefaultTableCellRenderer() {
+            @Override
+            public Component getTableCellRendererComponent(JTable table, Object value,
+                    boolean isSelected, boolean hasFocus, int row, int column) {
+                Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+
+                // Solo pintar la celda específica de la transición
+                if (row == fila && column == columna) {
+                    c.setBackground(Color.YELLOW);  // Solo esta celda
+                    c.setForeground(Color.BLACK);
+                } // Solo pintar la celda del estado en la primera columna
+                else if (row == fila && column == 0) {
+                    c.setBackground(Color.CYAN);    // Solo esta celda
+                    c.setForeground(Color.BLACK);
+                } // NO pintar otras celdas de la columna del símbolo
+                else {
+                    c.setBackground(Color.WHITE);
+                    c.setForeground(Color.BLACK);
+                }
+                setHorizontalAlignment(SwingConstants.CENTER);
+                return c;
+            }
+        });
+    }
+
+    private void resaltarEncabezadoSimbolo(int columnaSimbolo) {
+        // Pintar el encabezado de la columna del símbolo
+        TableColumn column = tblTransiciones.getColumnModel().getColumn(columnaSimbolo);
+        column.setHeaderRenderer(new DefaultTableCellRenderer() {
+            @Override
+            public Component getTableCellRendererComponent(JTable table, Object value,
+                    boolean isSelected, boolean hasFocus, int row, int column) {
+                Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+                c.setBackground(Color.ORANGE);
+                c.setForeground(Color.BLACK);
+                setHorizontalAlignment(SwingConstants.CENTER);
+                setFont(getFont().deriveFont(Font.BOLD));
+                return c;
+            }
+        });
+    }
+
+    private void resaltarEstadoColumna(int filaEstado) {
+        // Pintar la celda del estado en la primera columna (columna 0)
+        tblTransiciones.getColumnModel().getColumn(0).setCellRenderer(new DefaultTableCellRenderer() {
+            @Override
+            public Component getTableCellRendererComponent(JTable table, Object value,
+                    boolean isSelected, boolean hasFocus, int row, int column) {
+                Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+
+                if (row == filaEstado && column == 0) {
+                    c.setBackground(Color.CYAN);  // Estado actual
+                    c.setForeground(Color.BLACK);
+                } else {
+                    c.setBackground(Color.WHITE);
+                    c.setForeground(Color.BLACK);
+                }
+                setHorizontalAlignment(SwingConstants.CENTER);
+                return c;
+            }
+        });
+    }
+
+
+    public void mostrarEstadosTransicion(String estadoActual, String estadoSiguiente) {
+        txtEstadoActual.setText(estadoActual);
+        txtEstadoSiguiente.setText(estadoSiguiente);
+    }
+
+    public void marcarCadenaValida(int indiceCadena, boolean esValida) {
+
+        if (indiceCadena >= 0 && indiceCadena < modeloTablaCadenas.getRowCount()) {
+            modeloTablaCadenas.setValueAt(esValida ? "Sí" : "No", indiceCadena, 1);
+        }
+
+    }
+
     //Metodos para el controlador
     public void mostrarContenido(String contenido) {
         Areatxt.setText(contenido);
@@ -316,11 +488,13 @@ public class VistaPrincipal extends javax.swing.JFrame {
         btnProbarCadena = new javax.swing.JButton();
         scrollCadenas = new javax.swing.JScrollPane();
         tblcadenas = new javax.swing.JTable();
-        jTextField1 = new javax.swing.JTextField();
+        txtEstadoActual = new javax.swing.JTextField();
         txtElementoCadena = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         lblImageAFD = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        txtEstadoSiguiente = new javax.swing.JTextField();
         MenuBarra = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         MenuFile = new javax.swing.JMenu();
@@ -505,7 +679,9 @@ public class VistaPrincipal extends javax.swing.JFrame {
         );
 
         ContenedorPrincipal.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 260, 715));
-        ContenedorPrincipal.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(950, 240, 90, 50));
+
+        txtEstadoActual.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        ContenedorPrincipal.add(txtEstadoActual, new org.netbeans.lib.awtextra.AbsoluteConstraints(950, 240, 90, 50));
 
         txtElementoCadena.setFont(new java.awt.Font("Sans Serif Collection", 1, 18)); // NOI18N
         txtElementoCadena.setHorizontalAlignment(javax.swing.JTextField.CENTER);
@@ -521,6 +697,14 @@ public class VistaPrincipal extends javax.swing.JFrame {
         jLabel8.setText("Estado Actual");
         ContenedorPrincipal.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(950, 210, -1, 30));
         ContenedorPrincipal.add(lblImageAFD, new org.netbeans.lib.awtextra.AbsoluteConstraints(900, 400, 580, 280));
+
+        jLabel9.setFont(new java.awt.Font("Sans Serif Collection", 1, 12)); // NOI18N
+        jLabel9.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel9.setText("Estado Siguiente");
+        ContenedorPrincipal.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(1080, 213, -1, 20));
+
+        txtEstadoSiguiente.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        ContenedorPrincipal.add(txtEstadoSiguiente, new org.netbeans.lib.awtextra.AbsoluteConstraints(1080, 240, 90, 50));
 
         MenuBarra.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         MenuBarra.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -675,11 +859,11 @@ public class VistaPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JLabel lblImageAFD;
     public javax.swing.JScrollPane scrollCadenas;
     public javax.swing.JScrollPane scrollPaneEstadosAceptacion;
@@ -690,7 +874,9 @@ public class VistaPrincipal extends javax.swing.JFrame {
     public javax.swing.JTable tblTransiciones;
     private javax.swing.JTable tblcadenas;
     private javax.swing.JTextField txtElementoCadena;
+    private javax.swing.JTextField txtEstadoActual;
     public javax.swing.JTextField txtEstadoIncial;
+    private javax.swing.JTextField txtEstadoSiguiente;
     // End of variables declaration//GEN-END:variables
 
 }

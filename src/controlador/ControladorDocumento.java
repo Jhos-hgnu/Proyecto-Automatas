@@ -4,10 +4,12 @@
  */
 package controlador;
 
+import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -30,6 +32,8 @@ public class ControladorDocumento implements ActionListener {
     private List<String> elementosCadenaActual;
     private int indiceElementoActual;
     private String cadenaSeleccionadaActual;
+    private String estadoActual;
+    private List<Point> caminoRecorrido;
 
     public ControladorDocumento(ModeloDocumento modelo, VistaPrincipal vista) {
         this.modelo = modelo;
@@ -189,57 +193,140 @@ public class ControladorDocumento implements ActionListener {
 
     }
 
+    //Metodos para mostrar cadena y pintar tabla de transiciones
     public void probarCadena() {
 
         String cadenaSeleccionada = vista.obtenerCadenaSeleccionada();
-
         if (cadenaSeleccionada == null) {
             JOptionPane.showMessageDialog(vista, "Selecciona una cadena de la tabla",
                     "Advertencia", JOptionPane.WARNING_MESSAGE);
             return;
         }
-        
-        if (elementosCadenaActual == null || !cadenaSeleccionada.equals(cadenaSeleccionadaActual)) {
-            iniciarNuevaCadena(cadenaSeleccionada);
+
+
+        // CORRECCIÓN: Si hay una cadena diferente seleccionada, reiniciar
+        if (elementosCadenaActual != null && !vista.obtenerCadenaSeleccionada().equals(cadenaSeleccionadaActual)) {
+            elementosCadenaActual = null;
+            estadoActual = null;
+            caminoRecorrido = null;
         }
-        
-        mostrarSiguienteElemento();
+
+        // Si es nueva cadena, inicializar
+        if (elementosCadenaActual == null) {
+            iniciarNuevaCadena(cadenaSeleccionada);
+            cadenaSeleccionadaActual = cadenaSeleccionada;
+        }
+
+        // 3. Procesar siguiente elemento
+        procesarSiguienteElemento();
 
     }
-    
-    
+
+
     private void iniciarNuevaCadena(String cadena) {
-        
+
         elementosCadenaActual = Arrays.stream(cadena.split(",")).map(String::trim).collect(Collectors.toList());
-        
+
         cadenaSeleccionadaActual = cadena;
         indiceElementoActual = 0;
-        
+
         System.out.println("" + cadena);
-        
+
+        //Metodos pintar tabla
+        caminoRecorrido = new ArrayList<>();
+        estadoActual = modelo.getEstadoInicial();
+
+        vista.limpiarColoresTabla();
+        vista.setTextoEnCampo("");
+
+        vista.mostrarEstadosTransicion(estadoActual, "-");
+
+        System.out.println("Iniciando procesamiento de: " + cadena);
+        System.out.println("Estado inicial: " + estadoActual);
+
     }
-    
-    private void mostrarSiguienteElemento() {
-        if(elementosCadenaActual != null && indiceElementoActual < elementosCadenaActual.size()) {
-            String elemento = elementosCadenaActual.get(indiceElementoActual);
-            
-            vista.setTextoEnCampo(elemento);
-            
-            
-            indiceElementoActual++;
-            
-            
-            if(indiceElementoActual >= elementosCadenaActual.size()) {
-                System.out.println("Fin de la cadena");
-                
-                
-                elementosCadenaActual = null;
-                cadenaSeleccionadaActual = null;
+
+
+    //Metodo para procesar elemento por elemento, validar y pintar celdas posteriormente
+    private void procesarSiguienteElemento() {
+        if (elementosCadenaActual == null || indiceElementoActual >= elementosCadenaActual.size()) {
+            // Finalizar cadena y validar
+            if (elementosCadenaActual != null) {
+                validarCadenaFinal();
             }
-            
-            
-            
+            elementosCadenaActual = null;
+            estadoActual = null;
+            caminoRecorrido = null;
+            return;
         }
+
+        String simbolo = elementosCadenaActual.get(indiceElementoActual);
+        String estadoSiguiente = obtenerTransicion(estadoActual, simbolo);
+
+        if (estadoSiguiente != null && !estadoSiguiente.equals("-")) {
+            // Resaltar celda en la tabla
+            int fila = modelo.getEstadosList().indexOf(estadoActual);
+            int columna = modelo.getSimbolosList().indexOf(simbolo) + 1; // +1 por columna de estados
+
+            // CORRECCIÓN: Verificar que los índices son válidos
+            if (fila >= 0 && columna >= 1 && columna < vista.tblTransiciones.getColumnCount()) {
+                // Resaltar la transición actual
+                vista.resaltarCelda(fila, columna, estadoActual, simbolo);
+
+            }
+
+            // Mostrar en interfaz
+            vista.setTextoEnCampo(simbolo);
+            vista.mostrarEstadosTransicion(estadoActual, estadoSiguiente);
+
+            System.out.println("Transición: " + estadoActual + " --" + simbolo + "--> " + estadoSiguiente);
+
+            // Preparar siguiente iteración
+            estadoActual = estadoSiguiente;
+            indiceElementoActual++;
+
+            // Si es el último elemento, preparar validación
+            if (indiceElementoActual >= elementosCadenaActual.size()) {
+                System.out.println("Último elemento procesado");
+            }
+        } else {
+            JOptionPane.showMessageDialog(vista, "No existe transición para " + estadoActual + " con " + simbolo,
+                    "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    private String obtenerTransicion(String estadoActual, String simbolo) {
+        int fila = modelo.getEstadosList().indexOf(estadoActual);
+        int columna = modelo.getSimbolosList().indexOf(simbolo);
+
+        if (fila >= 0 && columna >= 0) {
+            return modelo.getMatrizTransiciones()[fila][columna];
+        }
+        return null;
+    }
+
+    private void validarCadenaFinal() {
+        // Verificar si el estado final es de aceptación
+        if (estadoActual == null) {
+            return;
+        }
+
+        boolean esValida = modelo.getEstadosAceptacionList().contains(estadoActual);
+        int indiceCadena = vista.obtenerIndiceCadenaSeleccionada();
+
+        // CORRECCIÓN: Verificar que el índice es válido
+        if (indiceCadena != -1) {
+            vista.marcarCadenaValida(indiceCadena, esValida);
+            vista.mostrarEstadosTransicion(estadoActual, esValida ? "ACEPTADO" : "RECHAZADO");
+
+            String mensaje = esValida ? "Cadena VÁLIDA - Estado final: " + estadoActual
+                    : "Cadena INVÁLIDA - Estado final: " + estadoActual;
+            JOptionPane.showMessageDialog(vista, mensaje, "Resultado",
+                    esValida ? JOptionPane.INFORMATION_MESSAGE : JOptionPane.WARNING_MESSAGE);
+
+            System.out.println("Cadena " + (esValida ? "VÁLIDA" : "INVÁLIDA") + " - Estado final: " + estadoActual);
+        }
+
     }
 
     //Método para limpiar elementos gráficos

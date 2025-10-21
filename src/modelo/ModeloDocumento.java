@@ -81,6 +81,9 @@ public class ModeloDocumento {
             this.cadenasList = cadenas;
             System.out.println("Cadenas del modelo " + cadenas);
             System.out.println("Hola");
+            
+            String estadosAceptacionStr = ArchivoTexto.extraerValorPatronEnArchivo(contenido, "Estados de aceptación:");
+            this.estadosAceptacionList = procesarLista(estadosAceptacionStr);
         }
     }
 
