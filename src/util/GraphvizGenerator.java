@@ -15,59 +15,60 @@ import java.util.stream.Collectors;
  *
  * @author jhosu
  */
+
 public class GraphvizGenerator {
 
-    public static String generarCodigoDot(String estadoInicial, List<String> estadosAceptacion, List<String[]> transiciones, String estadoActual, Map<String, String> transicionesUsadas) {
-
-        StringBuilder dot = new StringBuilder();
-
-        //Encabezados del archivo DOT
-        dot.append("digraph automata_finito_determinista {\n");
-        dot.append("\trankdir=LR;\n");
-        dot.append("\tsize=\"8,5\"\n\n");
-
-        //Configuración de estados de aceptación
-        if (!estadosAceptacion.isEmpty()) {
-            dot.append("\tnode [shape = doublecircle]; ");
-
-            for (String estado : estadosAceptacion) {
-                dot.append(estado).append(" ");
-            }
-            dot.append(";\n");
-        }
-
-        dot.append("\tnode [shape = circle];\n\n");
-
-        //Aplicar colores a los estados del autómata
-        dot.append("\t// Estados con colores\n");
-        List<String> todoEstados = obtenerTodosEstados(transiciones);
-        for (String estado : todoEstados) {
-            String color = obtenerColorEstado(estado, estadoInicial, estadoActual, estadosAceptacion);
-
-            dot.append("\t").append(estado).append(" [").append(color).append("];\n");
-        }
-
-        dot.append("\n");
-
-        // Generar transiciones
-        dot.append("\t// Transiciones\n");
-        for (String[] transicion : transiciones) {
-            if (transicion.length == 2) {
-                String origen = transicion[0];
-                String destino = transicion[1];
-                String simbolo = obtenerSimboloTransicion(transicion);
-                String colorTransicion = obtenerColorTransicion(origen, destino, simbolo, transicionesUsadas);
-
-                dot.append("\t").append(origen).append(" -> ").append(destino)
-                        .append(" [ label = \"").append(obtenerSimboloTransicion(transicion)).append("\" ]")
-                        .append(colorTransicion).append(";\n");
-            }
-        }
-
-        dot.append("}");
-        return dot.toString();
-
-    }
+//    public static String generarCodigoDot(String estadoInicial, List<String> estadosAceptacion, List<String[]> transiciones, String estadoActual, Map<String, String> transicionesUsadas) {
+//
+//        StringBuilder dot = new StringBuilder();
+//
+//        //Encabezados del archivo DOT
+//        dot.append("digraph automata_finito_determinista {\n");
+//        dot.append("\trankdir=LR;\n");
+//        dot.append("\tsize=\"8,5\"\n\n");
+//
+//        //Configuración de estados de aceptación
+//        if (!estadosAceptacion.isEmpty()) {
+//            dot.append("\tnode [shape = doublecircle]; ");
+//
+//            for (String estado : estadosAceptacion) {
+//                dot.append(estado).append(" ");
+//            }
+//            dot.append(";\n");
+//        }
+//
+//        dot.append("\tnode [shape = circle];\n\n");
+//
+//        //Aplicar colores a los estados del autómata
+//        dot.append("\t// Estados con colores\n");
+//        List<String> todoEstados = obtenerTodosEstados(transiciones);
+//        for (String estado : todoEstados) {
+//            String color = obtenerColorEstado(estado, estadoInicial, estadoActual, estadosAceptacion);
+//
+//            dot.append("\t").append(estado).append(" [").append(color).append("];\n");
+//        }
+//
+//        dot.append("\n");
+//
+//        // Generar transiciones
+//        dot.append("\t// Transiciones\n");
+//        for (String[] transicion : transiciones) {
+//            if (transicion.length == 2) {
+//                String origen = transicion[0];
+//                String destino = transicion[1];
+//                String simbolo = obtenerSimboloTransicion(transicion);
+//                String colorTransicion = obtenerColorTransicion(origen, destino, simbolo, transicionesUsadas);
+//
+//                dot.append("\t").append(origen).append(" -> ").append(destino)
+//                        .append(" [ label = \"").append(obtenerSimboloTransicion(transicion)).append("\" ]")
+//                        .append(colorTransicion).append(";\n");
+//            }
+//        }
+//
+//        dot.append("}");
+//        return dot.toString();
+//
+//    }
 
     private static List<String> obtenerTodosEstados(List<String[]> transiciones) {
         Set<String> estados = new HashSet<>();
@@ -133,15 +134,28 @@ public class GraphvizGenerator {
 
     private static String obtenerColorTransicion(String origen, String destino, String simbolo,
             Map<String, String> transicionesUsadas) {
-        if (transicionesUsadas != null) {
+        if (transicionesUsadas != null && !transicionesUsadas.isEmpty()) {
             // Buscar si esta transición fue usada recientemente
-            String key = origen + "->" + destino + "|" + simbolo;
-            String keySimple = origen + "->" + destino;
-
-            if (transicionesUsadas.containsKey(key) || transicionesUsadas.containsKey(keySimple)) {
-                return " [color=\"#ff0000\" penwidth=2.0]"; // Transición USADA - rojo
-            }
+            String key1 = origen + "|" + simbolo + "->" + destino;
+            String key2 = origen + "->" + destino;
+            
+            if (transicionesUsadas.containsKey(key1)) {
+            System.out.println("ENCONTRADA key1 - Pintando AZUL");
+            return " [color=\"#0000ff\" penwidth=3.0]"; // Azul grueso
         }
+        if (transicionesUsadas.containsKey(key2)) {
+            System.out.println("ENCONTRADA key2 - Pintando AZUL"); 
+            return " [color=\"#0000ff\" penwidth=3.0]"; // Azul grueso
+        }
+        System.out.println("NO encontrada");
+    } else {
+        System.out.println("transicionesUsadas es null o vacío");
+    }
+
+//            if (transicionesUsadas.containsKey(key) || transicionesUsadas.containsKey(keySimple)) {
+//                return " [color=\"#0000ff\" penwidth=2.0]"; // Transición USADA - rojo
+//            }
+
         return " [color=\"#000000\"]"; // Transición normal - negro
 
     }

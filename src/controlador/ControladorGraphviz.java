@@ -101,6 +101,9 @@ public class ControladorGraphviz {
         if (transicionesUsadas == null) {
             transicionesUsadas = new HashMap<>();
         }
+        
+        transicionesUsadas.clear();
+        
         transicionesUsadas.put(key, "usada");
         System.out.println(" Transición registrada: " + key);
 

@@ -2,22 +2,25 @@ digraph automata_finito_determinista {
 	rankdir=LR;
 	size="8,5"
 
-	node [shape = doublecircle]; Q3 ;
+	node [shape = doublecircle]; Q1 ;
 	node [shape = circle];
 
 	// Estados con colores
-	Q0 [color=black];
-	Q1 [color=black];
+	Q0 [color=deepskyblue style=filled];
+	Q1 [color=lightgreen style=filled];
 	Q2 [color=black];
-	Q3 [color=deepskyblue style=filled];
+	Q3 [color=black];
+	Q4 [color=black];
 
 	// Transiciones desde matriz
-	Q0 -> Q0 [ label = "0" ] [color="#000000"];
+	Q0 -> Q9 [ label = "0" ] [color="#0000ff" penwidth=3.0];
 	Q0 -> Q1 [ label = "1" ] [color="#000000"];
-	Q1 -> Q1 [ label = "0" ] [color="#000000"];
-	Q1 -> Q2 [ label = "1" ] [color="#000000"];
-	Q2 -> Q2 [ label = "0" ] [color="#000000"];
+	Q1 -> Q3 [ label = "0" ] [color="#000000"];
+	Q1 -> Q0 [ label = "1" ] [color="#000000"];
+	Q2 -> Q0 [ label = "0" ] [color="#000000"];
 	Q2 -> Q3 [ label = "1" ] [color="#000000"];
-	Q3 -> Q3 [ label = "0" ] [color="#000000"];
-	Q3 -> Q0 [ label = "1" ] [color="#000000"];
+	Q3 -> Q1 [ label = "0" ] [color="#000000"];
+	Q3 -> Q2 [ label = "1" ] [color="#000000"];
+	Q4 -> Q4 [ label = "0" ] [color="#000000"];
+	Q4 -> Q3 [ label = "1" ] [color="#000000"];
 }
