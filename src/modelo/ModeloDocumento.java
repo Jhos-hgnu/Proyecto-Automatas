@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 import util.ArchivoTexto;
 import vista.VistaPrincipal;
 
@@ -30,6 +31,8 @@ public class ModeloDocumento {
     private List<String[]> transicionesList;
     private List<String> cadenasList;
     private String[][] matrizTransiciones;
+    private Map<String, String> coloresEstados;
+    private Map<String, String> coloresTransiciones;
 
     public void cargarDatosDesdeArchivo(File archivo) throws IOException {
         this.archivoActual = archivo;
@@ -161,6 +164,22 @@ public class ModeloDocumento {
 
     public List<String> getCadenasList() {
         return cadenasList;
+    }
+
+    public Map<String, String> getColoresEstados() {
+        return coloresEstados;
+    }
+
+    public void setColoresEstados(Map<String, String> coloresEstados) {
+        this.coloresEstados = coloresEstados;
+    }
+
+    public Map<String, String> getColoresTransiciones() {
+        return coloresTransiciones;
+    }
+
+    public void setColoresTransiciones(Map<String, String> coloresTransiciones) {
+        this.coloresTransiciones = coloresTransiciones;
     }
 
     

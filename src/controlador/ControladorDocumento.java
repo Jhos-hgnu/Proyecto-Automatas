@@ -18,6 +18,7 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import modelo.ModeloDocumento;
 import util.ArchivoTexto;
+import util.GraphvizGenerator;
 import vista.VistaAcercaDe;
 import vista.VistaPrincipal;
 
@@ -34,10 +35,12 @@ public class ControladorDocumento implements ActionListener {
     private String cadenaSeleccionadaActual;
     private String estadoActual;
     private List<Point> caminoRecorrido;
+    private ControladorGraphviz gravphvizControlador;
 
     public ControladorDocumento(ModeloDocumento modelo, VistaPrincipal vista) {
         this.modelo = modelo;
         this.vista = vista;
+        this.gravphvizControlador = new ControladorGraphviz(vista.lblImageAFD);
         configurarListeners();
 
     }
@@ -203,7 +206,6 @@ public class ControladorDocumento implements ActionListener {
             return;
         }
 
-
         // CORRECCIÓN: Si hay una cadena diferente seleccionada, reiniciar
         if (elementosCadenaActual != null && !vista.obtenerCadenaSeleccionada().equals(cadenaSeleccionadaActual)) {
             elementosCadenaActual = null;
@@ -221,7 +223,6 @@ public class ControladorDocumento implements ActionListener {
         procesarSiguienteElemento();
 
     }
-
 
     private void iniciarNuevaCadena(String cadena) {
 
@@ -246,6 +247,16 @@ public class ControladorDocumento implements ActionListener {
 
     }
 
+    private void actualizarGraphviz() {
+        gravphvizControlador.actualizarVisualizacionDesdeMatriz(
+                modelo.getEstadoInicial(),
+                modelo.getEstadosAceptacionList(),
+                modelo.getEstadosList(),
+                modelo.getSimbolosList(),
+                modelo.getMatrizTransiciones(),
+                estadoActual
+        );
+    }
 
     //Metodo para procesar elemento por elemento, validar y pintar celdas posteriormente
     private void procesarSiguienteElemento() {
@@ -272,8 +283,16 @@ public class ControladorDocumento implements ActionListener {
             if (fila >= 0 && columna >= 1 && columna < vista.tblTransiciones.getColumnCount()) {
                 // Resaltar la transición actual
                 vista.resaltarCelda(fila, columna, estadoActual, simbolo);
-
             }
+
+            // 2. REGISTRAR TRANSICIÓN ANTES de actualizar estadoActual
+            String key = estadoActual + "|" + simbolo + "->" + estadoSiguiente;
+            System.out.println("Transición " + key);
+            gravphvizControlador.registrarTransicionUsada(key);
+            
+
+            // 3. ACTUALIZAR GRAPHVIZ ANTES de cambiar estadoActual
+            actualizarGraphviz();
 
             // Mostrar en interfaz
             vista.setTextoEnCampo(simbolo);

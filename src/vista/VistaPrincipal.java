@@ -492,9 +492,10 @@ public class VistaPrincipal extends javax.swing.JFrame {
         txtElementoCadena = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
-        lblImageAFD = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         txtEstadoSiguiente = new javax.swing.JTextField();
+        contenedorImageAFD = new javax.swing.JPanel();
+        lblImageAFD = new javax.swing.JLabel();
         MenuBarra = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         MenuFile = new javax.swing.JMenu();
@@ -696,7 +697,6 @@ public class VistaPrincipal extends javax.swing.JFrame {
         jLabel8.setForeground(new java.awt.Color(0, 0, 0));
         jLabel8.setText("Estado Actual");
         ContenedorPrincipal.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(950, 210, -1, 30));
-        ContenedorPrincipal.add(lblImageAFD, new org.netbeans.lib.awtextra.AbsoluteConstraints(900, 400, 580, 280));
 
         jLabel9.setFont(new java.awt.Font("Sans Serif Collection", 1, 12)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(0, 0, 0));
@@ -705,6 +705,27 @@ public class VistaPrincipal extends javax.swing.JFrame {
 
         txtEstadoSiguiente.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         ContenedorPrincipal.add(txtEstadoSiguiente, new org.netbeans.lib.awtextra.AbsoluteConstraints(1080, 240, 90, 50));
+
+        contenedorImageAFD.setBackground(new java.awt.Color(204, 204, 204));
+
+        javax.swing.GroupLayout contenedorImageAFDLayout = new javax.swing.GroupLayout(contenedorImageAFD);
+        contenedorImageAFD.setLayout(contenedorImageAFDLayout);
+        contenedorImageAFDLayout.setHorizontalGroup(
+            contenedorImageAFDLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(contenedorImageAFDLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lblImageAFD, javax.swing.GroupLayout.DEFAULT_SIZE, 598, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        contenedorImageAFDLayout.setVerticalGroup(
+            contenedorImageAFDLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, contenedorImageAFDLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lblImageAFD, javax.swing.GroupLayout.DEFAULT_SIZE, 328, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        ContenedorPrincipal.add(contenedorImageAFD, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 340, 610, 340));
 
         MenuBarra.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         MenuBarra.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -851,6 +872,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenu MenuInformacion;
     private javax.swing.JButton btnProbarCadena;
     private javax.swing.JButton btnProbartxt;
+    private javax.swing.JPanel contenedorImageAFD;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -864,7 +886,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JLabel lblImageAFD;
+    public javax.swing.JLabel lblImageAFD;
     public javax.swing.JScrollPane scrollCadenas;
     public javax.swing.JScrollPane scrollPaneEstadosAceptacion;
     public javax.swing.JScrollPane scrollPaneSimbolos;
