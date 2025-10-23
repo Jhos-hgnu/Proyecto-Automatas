@@ -2,25 +2,37 @@ digraph automata_finito_determinista {
 	rankdir=LR;
 	size="8,5"
 
-	node [shape = doublecircle]; Q1 ;
+	ordering=out;
+	nodesep=0.8;
+
+	node [shape = doublecircle]; E ;
 	node [shape = circle];
 
+	// Flecha de inicio visible
+	inic [shape=point, width=0.15, color=black];
+	inic -> A [color=black, arrowhead=normal];
+
+	{ rank = same; A; }
+	{ rank = same; B; }
+	{ rank = same; C; }
+	{ rank = same; D; }
+	{ rank = same; E; }
 	// Estados con colores
-	Q0 [color=deepskyblue style=filled];
-	Q1 [color=lightgreen style=filled];
-	Q2 [color=black];
-	Q3 [color=black];
-	Q4 [color=black];
+	A [color=black];
+	B [color=black];
+	C [color=deepskyblue style=filled];
+	D [color=black];
+	E [color=lightgreen style=filled];
 
 	// Transiciones desde matriz
-	Q0 -> Q9 [ label = "0" ] [color="#0000ff" penwidth=3.0];
-	Q0 -> Q1 [ label = "1" ] [color="#000000"];
-	Q1 -> Q3 [ label = "0" ] [color="#000000"];
-	Q1 -> Q0 [ label = "1" ] [color="#000000"];
-	Q2 -> Q0 [ label = "0" ] [color="#000000"];
-	Q2 -> Q3 [ label = "1" ] [color="#000000"];
-	Q3 -> Q1 [ label = "0" ] [color="#000000"];
-	Q3 -> Q2 [ label = "1" ] [color="#000000"];
-	Q4 -> Q4 [ label = "0" ] [color="#000000"];
-	Q4 -> Q3 [ label = "1" ] [color="#000000"];
+	A -> A [ label = "x" ] [color="#000000"];
+	A -> B [ label = "y" ] [color="#000000"];
+	B -> B [ label = "x" ] [color="#000000"];
+	B -> C [ label = "y" ] [color="#000000"];
+	C -> C [ label = "x" ] [color="#ffa500" penwidth=3.0];
+	C -> D [ label = "y" ] [color="#000000"];
+	D -> D [ label = "x" ] [color="#000000"];
+	D -> E [ label = "y" ] [color="#000000"];
+	E -> B [ label = "x" ] [color="#000000"];
+	E -> E [ label = "y" ] [color="#000000"];
 }

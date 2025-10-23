@@ -470,7 +470,6 @@ public class VistaPrincipal extends javax.swing.JFrame {
         ContenedorScrollP = new javax.swing.JScrollPane();
         Areatxt = new javax.swing.JTextArea();
         jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
         txtEstadoIncial = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -528,18 +527,12 @@ public class VistaPrincipal extends javax.swing.JFrame {
         Areatxt.setRows(5);
         ContenedorScrollP.setViewportView(Areatxt);
 
-        ContenedorPrincipal.add(ContenedorScrollP, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 50, 430, 302));
+        ContenedorPrincipal.add(ContenedorScrollP, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 12, 430, 340));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(0, 0, 0));
         jLabel1.setText("Estado Inicial");
         ContenedorPrincipal.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 390, -1, 35));
-
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel2.setText("Área de Texto");
-        ContenedorPrincipal.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 20, 194, -1));
 
         txtEstadoIncial.setEditable(false);
         txtEstadoIncial.setBackground(new java.awt.Color(204, 204, 204));
@@ -655,17 +648,20 @@ public class VistaPrincipal extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(scrollCadenas, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(btnProbarCadena)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addContainerGap()
+                        .addComponent(scrollCadenas, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(14, 14, 14)
+                                .addComponent(jLabel6))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(68, 68, 68)
+                                .addComponent(btnProbarCadena)))
+                        .addGap(0, 65, Short.MAX_VALUE)))
                 .addContainerGap())
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(14, 14, 14)
-                .addComponent(jLabel6)
-                .addContainerGap(81, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -874,7 +870,6 @@ public class VistaPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton btnProbartxt;
     private javax.swing.JPanel contenedorImageAFD;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
