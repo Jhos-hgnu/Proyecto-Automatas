@@ -1,5 +1,6 @@
 package controlador;
 
+import java.awt.Desktop;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -54,6 +55,8 @@ public class ControladorDocumento implements ActionListener {
         vista.getBtnEjemplo2().addActionListener(e -> abrirArchivoEjem("src/ejemplosdata/AFD_ejemplo2.txt"));
         vista.getBtnEjemplo3().addActionListener(e -> abrirArchivoEjem("src/ejemplosdata/AFD_ejemplo3.txt"));
         vista.getBtnProbarCadena().addActionListener(e -> probarCadena());
+        vista.getBtnManualUser().addActionListener(e -> abrirPDFs("src/resources/ManualDeUsuarioSimuladorAutomatas.pdf"));
+        vista.getBtnManualTec().addActionListener(e -> abrirPDFs("src/resources/ManualTecnicoSimuladorAutomatas.pdf"));
     }
 
     public void abrirArchivo() {
@@ -287,7 +290,6 @@ public class ControladorDocumento implements ActionListener {
             String key = estadoActual + "|" + simbolo + "->" + estadoSiguiente;
             System.out.println("Transición " + key);
             gravphvizControlador.registrarTransicionUsada(key);
-            
 
             // 3. ACTUALIZAR GRAPHVIZ ANTES de cambiar estadoActual
             actualizarGraphviz();
@@ -358,12 +360,35 @@ public class ControladorDocumento implements ActionListener {
         vista.scrollPaneTransiciones.repaint();
     }
 
-    public void limpiarElementosAFD(){
+    public void limpiarElementosAFD() {
         vista.limpiarAFD();
     }
-    
-    
-    
+
+    private void abrirPDFs(String ruta) {
+
+        File archivoPDF = new File(ruta);
+
+        if (!archivoPDF.exists()) {
+            JOptionPane.showMessageDialog(vista, "Archivo No encontrado", "MANUAL NO ENCONTRADO", JOptionPane.WARNING_MESSAGE);
+
+            return;
+        }
+
+        if (!Desktop.isDesktopSupported()) {
+            JOptionPane.showMessageDialog(vista, "Desktop no compatible en este sistema", "PROBLEMA AL ABRIR LOS ARCHIVOS", JOptionPane.WARNING_MESSAGE);
+
+            return;
+        }
+
+        try {
+            Desktop.getDesktop().open(archivoPDF);
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(vista, "No se pudo abrir el archivo", "MANUAL NO ENCONTRADO", JOptionPane.WARNING_MESSAGE);
+
+        }
+
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
     }

@@ -49,7 +49,7 @@ public class VistaAcercaDe extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel1.setBackground(new java.awt.Color(236, 239, 241));
+        jPanel1.setBackground(new java.awt.Color(227, 218, 201));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(0, 0, 0));
@@ -60,10 +60,10 @@ public class VistaAcercaDe extends javax.swing.JFrame {
 
         jScrollPane1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
 
-        jTextPane1.setBackground(new java.awt.Color(236, 239, 241));
-        jTextPane1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jTextPane1.setBackground(new java.awt.Color(245, 239, 215));
+        jTextPane1.setFont(new java.awt.Font("Sans Serif Collection", 1, 14)); // NOI18N
         jTextPane1.setForeground(new java.awt.Color(0, 0, 0));
-        jTextPane1.setText("Proyecto basado en la teoría de Autómatas y lenguajes formales, para el análisis de cadenas por un autómata.\n\n\nDesarrollado por Josué Fernando Hicho García\nFacultad Ingeniería en Sistemas y Ciencias de la Computación\nUniversidad Mariano Gálvez De Guatemala");
+        jTextPane1.setText("Proyecto basado en la teoría de Autómatas y lenguajes formales, para el análisis de cadenas por un autómata.\n\nDesarrollado por Josué Fernando Hicho García\nFacultad de Ingeniería en Sistemas y Ciencias de la Computación\nUniversidad Mariano Gálvez De Guatemala");
         jTextPane1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jTextPane1.setFocusable(false);
         jScrollPane1.setViewportView(jTextPane1);
@@ -75,26 +75,26 @@ public class VistaAcercaDe extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(148, 148, 148)
+                        .addGap(214, 214, 214)
                         .addComponent(jLabel1))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(208, 208, 208)
-                        .addComponent(jLabel2))
+                        .addGap(102, 102, 102)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 590, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(44, 44, 44)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 590, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(46, Short.MAX_VALUE))
+                        .addGap(255, 255, 255)
+                        .addComponent(jLabel2)))
+                .addContainerGap(108, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(36, 36, 36)
+                .addGap(30, 30, 30)
                 .addComponent(jLabel1)
-                .addGap(27, 27, 27)
-                .addComponent(jLabel2)
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(79, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 67, Short.MAX_VALUE)
+                .addComponent(jLabel2)
+                .addGap(22, 22, 22))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());

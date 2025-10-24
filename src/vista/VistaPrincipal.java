@@ -464,7 +464,17 @@ public class VistaPrincipal extends javax.swing.JFrame {
     public JMenuItem getBtnEjemplo3() {
         return ItemEjemplo3;
     }
+    
+    public JMenuItem getBtnManualUser(){
+        return ItemManualUser;
+    }
 
+    
+    public JMenuItem getBtnManualTec(){
+        return ItemManualTec;
+    }
+    
+    
     public JButton getBtnProbarCadena() {
         return btnProbarCadena;
     }
@@ -521,13 +531,13 @@ public class VistaPrincipal extends javax.swing.JFrame {
         ItemEjemplo3 = new javax.swing.JMenuItem();
         MenuInformacion = new javax.swing.JMenu();
         ItemAcercaDe = new javax.swing.JMenuItem();
+        ItemManualUser = new javax.swing.JMenuItem();
         ItemManualTec = new javax.swing.JMenuItem();
-        jMenuItem6 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(1080, 720));
 
-        ContenedorPrincipal.setBackground(new java.awt.Color(236, 239, 241));
+        ContenedorPrincipal.setBackground(new java.awt.Color(227, 218, 201));
         ContenedorPrincipal.setForeground(new java.awt.Color(57, 90, 175));
         ContenedorPrincipal.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -541,14 +551,13 @@ public class VistaPrincipal extends javax.swing.JFrame {
 
         ContenedorPrincipal.add(ContenedorScrollP, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 12, 430, 340));
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel1.setText("Estado  Inicial");
-        ContenedorPrincipal.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 400, 110, 35));
+        ContenedorPrincipal.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 240, 110, 35));
 
         txtEstadoIncial.setEditable(false);
-        txtEstadoIncial.setBackground(new java.awt.Color(204, 204, 204));
         txtEstadoIncial.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         txtEstadoIncial.setForeground(new java.awt.Color(0, 0, 0));
         txtEstadoIncial.setHorizontalAlignment(javax.swing.JTextField.CENTER);
@@ -559,18 +568,18 @@ public class VistaPrincipal extends javax.swing.JFrame {
                 txtEstadoIncialActionPerformed(evt);
             }
         });
-        ContenedorPrincipal.add(txtEstadoIncial, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 430, 95, 40));
+        ContenedorPrincipal.add(txtEstadoIncial, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 270, 110, 50));
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(0, 0, 0));
         jLabel3.setText("Estados");
-        ContenedorPrincipal.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 400, -1, -1));
+        ContenedorPrincipal.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 410, -1, -1));
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(0, 0, 0));
         jLabel4.setText("Símbolos");
         jLabel4.setToolTipText("");
-        ContenedorPrincipal.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 560, -1, -1));
+        ContenedorPrincipal.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 570, -1, -1));
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(0, 0, 0));
@@ -609,7 +618,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
         ));
         scrollPaneSimbolos.setViewportView(tblSimbolos);
 
-        ContenedorPrincipal.add(scrollPaneSimbolos, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 590, 275, 114));
+        ContenedorPrincipal.add(scrollPaneSimbolos, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 600, 275, 114));
 
         tblEstados.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -624,14 +633,15 @@ public class VistaPrincipal extends javax.swing.JFrame {
         ));
         scrollPaneEstadosAceptacion.setViewportView(tblEstados);
 
-        ContenedorPrincipal.add(scrollPaneEstadosAceptacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 430, 275, 115));
+        ContenedorPrincipal.add(scrollPaneEstadosAceptacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 440, 275, 115));
 
-        btnProbartxt.setBackground(new java.awt.Color(186, 186, 186));
+        btnProbartxt.setBackground(new java.awt.Color(165, 205, 175));
+        btnProbartxt.setFont(new java.awt.Font("Sans Serif Collection", 1, 12)); // NOI18N
         btnProbartxt.setForeground(new java.awt.Color(255, 255, 255));
         btnProbartxt.setText("Probar txt");
-        ContenedorPrincipal.add(btnProbartxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 360, -1, -1));
+        ContenedorPrincipal.add(btnProbartxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 360, -1, 40));
 
-        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setBackground(new java.awt.Color(224, 220, 212));
         jPanel1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -639,7 +649,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
         jLabel6.setText("Cadenas a Analizar");
 
         btnProbarCadena.setBackground(new java.awt.Color(0, 153, 255));
-        btnProbarCadena.setFont(new java.awt.Font("Sans Serif Collection", 0, 12)); // NOI18N
+        btnProbarCadena.setFont(new java.awt.Font("Sans Serif Collection", 1, 12)); // NOI18N
         btnProbarCadena.setForeground(new java.awt.Color(255, 255, 255));
         btnProbarCadena.setText("Probar Cadena");
 
@@ -666,14 +676,15 @@ public class VistaPrincipal extends javax.swing.JFrame {
                         .addContainerGap()
                         .addComponent(scrollCadenas, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(68, 68, 68)
-                        .addComponent(btnProbarCadena)
-                        .addGap(0, 65, Short.MAX_VALUE)))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(42, 42, 42)
+                                .addComponent(jLabel6))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(62, 62, 62)
+                                .addComponent(btnProbarCadena)))
+                        .addGap(0, 47, Short.MAX_VALUE)))
                 .addContainerGap())
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(42, 42, 42)
-                .addComponent(jLabel6)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -682,44 +693,44 @@ public class VistaPrincipal extends javax.swing.JFrame {
                 .addComponent(jLabel6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(scrollCadenas, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(18, 18, 18)
                 .addComponent(btnProbarCadena, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(318, Short.MAX_VALUE))
+                .addContainerGap(321, Short.MAX_VALUE))
         );
 
-        ContenedorPrincipal.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 260, 715));
+        ContenedorPrincipal.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 260, 730));
 
         txtEstadoActual.setEditable(false);
         txtEstadoActual.setFont(new java.awt.Font("Sans Serif Collection", 1, 18)); // NOI18N
         txtEstadoActual.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        ContenedorPrincipal.add(txtEstadoActual, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 270, 120, 50));
+        ContenedorPrincipal.add(txtEstadoActual, new org.netbeans.lib.awtextra.AbsoluteConstraints(1110, 270, 120, 50));
 
         txtElementoCadena.setEditable(false);
         txtElementoCadena.setFont(new java.awt.Font("Sans Serif Collection", 1, 18)); // NOI18N
         txtElementoCadena.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        ContenedorPrincipal.add(txtElementoCadena, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 270, 120, 50));
+        ContenedorPrincipal.add(txtElementoCadena, new org.netbeans.lib.awtextra.AbsoluteConstraints(950, 270, 120, 50));
 
         jLabel7.setFont(new java.awt.Font("Sans Serif Collection", 1, 12)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(0, 0, 0));
         jLabel7.setText("Símbolo Actual");
-        ContenedorPrincipal.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 230, -1, -1));
+        ContenedorPrincipal.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(950, 240, -1, -1));
 
         jLabel8.setFont(new java.awt.Font("Sans Serif Collection", 1, 12)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(0, 0, 0));
         jLabel8.setText("Estado Actual");
-        ContenedorPrincipal.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 230, 90, 30));
+        ContenedorPrincipal.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(1110, 240, 90, 30));
 
         jLabel9.setFont(new java.awt.Font("Sans Serif Collection", 1, 12)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(0, 0, 0));
         jLabel9.setText("Estado Siguiente");
-        ContenedorPrincipal.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(1120, 230, -1, 30));
+        ContenedorPrincipal.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(1270, 240, -1, 30));
 
         txtEstadoSiguiente.setEditable(false);
         txtEstadoSiguiente.setFont(new java.awt.Font("Sans Serif Collection", 1, 18)); // NOI18N
         txtEstadoSiguiente.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        ContenedorPrincipal.add(txtEstadoSiguiente, new org.netbeans.lib.awtextra.AbsoluteConstraints(1120, 270, 120, 50));
+        ContenedorPrincipal.add(txtEstadoSiguiente, new org.netbeans.lib.awtextra.AbsoluteConstraints(1270, 270, 120, 50));
 
-        contenedorImageAFD.setBackground(new java.awt.Color(204, 204, 204));
+        contenedorImageAFD.setBackground(new java.awt.Color(245, 239, 215));
 
         javax.swing.GroupLayout contenedorImageAFDLayout = new javax.swing.GroupLayout(contenedorImageAFD);
         contenedorImageAFD.setLayout(contenedorImageAFDLayout);
@@ -801,11 +812,11 @@ public class VistaPrincipal extends javax.swing.JFrame {
         ItemAcercaDe.setText("Acerca de:");
         MenuInformacion.add(ItemAcercaDe);
 
+        ItemManualUser.setText("Manual Usuario");
+        MenuInformacion.add(ItemManualUser);
+
         ItemManualTec.setText("Manual Técnico");
         MenuInformacion.add(ItemManualTec);
-
-        jMenuItem6.setText("Manual Usuario");
-        MenuInformacion.add(jMenuItem6);
 
         MenuBarra.add(MenuInformacion);
 
@@ -878,6 +889,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
     public javax.swing.JMenuItem ItemGuardar;
     public javax.swing.JMenuItem ItemGuardarComo;
     private javax.swing.JMenuItem ItemManualTec;
+    private javax.swing.JMenuItem ItemManualUser;
     public javax.swing.JMenuItem ItemNuevo;
     private javax.swing.JMenuBar MenuBarra;
     private javax.swing.JMenu MenuEjemplos;
@@ -895,7 +907,6 @@ public class VistaPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     public javax.swing.JLabel lblImageAFD;
