@@ -43,6 +43,8 @@ public class VistaPrincipal extends javax.swing.JFrame {
     private DefaultTableModel modeloTablaTransiciones;
     private DefaultTableModel modeloTablaCadenas;
 
+    //Hola Papu, estes es mi proyecto de autómatas :)
+    
     public VistaPrincipal() {
         initComponents();
         setTitle("Autómatas y Lenguajes Formales");

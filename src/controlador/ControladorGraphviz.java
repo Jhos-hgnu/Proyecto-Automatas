@@ -36,13 +36,13 @@ public class ControladorGraphviz {
     
    
     public void actualizarVisualizacion(String codigoDot) {
-        // 1. Guardar archivo .dot
+        // Guardar archivo .dot
         guardarArchivoDot(codigoDot, "automata.dot");
 
-        // 2. Generar imagen
+        // Generar imagen
         generarImagen("automata.dot", "automata.png");
 
-        // 3. Mostrar imagen en la interfaz
+        // Mostrar imagen en la interfaz
         mostrarImagenEnVista("automata.png");
     }
 

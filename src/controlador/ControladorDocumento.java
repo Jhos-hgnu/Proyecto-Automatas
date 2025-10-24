@@ -286,12 +286,12 @@ public class ControladorDocumento implements ActionListener {
                 vista.resaltarCelda(fila, columna, estadoActual, simbolo);
             }
 
-            // 2. REGISTRAR TRANSICIÓN ANTES de actualizar estadoActual
+            //REGISTRAR TRANSICIÓN ANTES de actualizar estadoActual
             String key = estadoActual + "|" + simbolo + "->" + estadoSiguiente;
             System.out.println("Transición " + key);
             gravphvizControlador.registrarTransicionUsada(key);
 
-            // 3. ACTUALIZAR GRAPHVIZ ANTES de cambiar estadoActual
+            // ACTUALIZAR GRAPHVIZ ANTES de cambiar estadoActual
             actualizarGraphviz();
 
             // Mostrar en interfaz
@@ -334,7 +334,7 @@ public class ControladorDocumento implements ActionListener {
         boolean esValida = modelo.getEstadosAceptacionList().contains(estadoActual);
         int indiceCadena = vista.obtenerIndiceCadenaSeleccionada();
 
-        // CORRECCIÓN: Verificar que el índice es válido
+        //Verificar que el índice es válido
         if (indiceCadena != -1) {
             vista.marcarCadenaValida(indiceCadena, esValida);
             vista.mostrarEstadosTransicion(estadoActual, esValida ? "ACEPTADO" : "RECHAZADO");
@@ -349,7 +349,7 @@ public class ControladorDocumento implements ActionListener {
 
     }
 
-    //Método para limpiar elementos gráficos
+    // Método para limpiar elementos gráficos
     public void limpiarElementos() {
         vista.txtEstadoIncial.revalidate();
         vista.scrollPaneEstadosAceptacion.revalidate();

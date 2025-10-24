@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
  */
 public class GraphvizGenerator {
     
-        // En util/GraphvizGenerator.java
+        // Clase que se encargar de generar el código para DOT
     public static String generarCodigoDotDesdeMatriz(String estadoInicial, List<String> estadosAceptacion,
             List<String> estados, List<String> simbolos,
             String[][] matrizTransiciones, String estadoActual,
@@ -133,9 +133,7 @@ public class GraphvizGenerator {
             System.out.println("transicionesUsadas es null o vacío");
         }
 
-//            if (transicionesUsadas.containsKey(key) || transicionesUsadas.containsKey(keySimple)) {
-//                return " [color=\"#0000ff\" penwidth=2.0]"; // Transición USADA - rojo
-//            }
+
         return " [color=\"#000000\"]"; // Transición normal - negro
 
     }
