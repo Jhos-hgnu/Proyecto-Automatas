@@ -93,48 +93,6 @@ public class GraphvizGenerator {
     }
     
     
-    private static List<String> obtenerTodosEstados(List<String[]> transiciones) {
-        Set<String> estados = new HashSet<>();
-
-        if (transiciones != null) {
-            for (String[] transicion : transiciones) {
-                if (transicion.length >= 2) {
-                    estados.add(transicion[0]); // Estado origen
-                    estados.add(transicion[1]); // Estado destino
-                }
-            }
-        }
-
-        // Ordenar los estados para consistencia (Q0, Q1, Q2...)
-        return estados.stream()
-                .sorted()
-                .collect(Collectors.toList());
-    }
-
-    //MÉTODO 2: Extraer el símbolo de la transición
-    private static String obtenerSimboloTransicion(String[] transicion) {
-        // Depende del formato de tus transiciones:
-        // Formato 1: ["Q0", "Q1"] → símbolo implícito (necesitarías mapeo)
-        // Formato 2: ["Q0", "1|Q1"] → símbolo explícito
-
-        if (transicion.length < 2) {
-            return "ε"; // Transición épsilon por defecto
-        }
-
-        String destinoCompleto = transicion[1];
-
-        // Si el formato es "símbolo|estadoDestino"
-        if (destinoCompleto.contains("|")) {
-            String[] partes = destinoCompleto.split("\\|");
-            if (partes.length >= 2) {
-                return partes[0].trim(); // Retorna el símbolo
-            }
-        }
-
-        // Si no hay símbolo explícito, usar uno por defecto basado en la transición
-        // Esto es un fallback - idealmente tus transiciones deberían tener símbolos
-        return generarSimboloPorDefecto(transicion[0], transicion[1]);
-    }
 
     private static String generarSimboloPorDefecto(String origen, String destino) {
         // Usar hash simple para generar símbolo consistente
@@ -193,7 +151,7 @@ public class GraphvizGenerator {
             System.out.println("Estado inicial agregado: " + estadoInicial);
         }
         
-        // Agregar los demás estados en orden natural (Q0, Q1, Q2...)
+        // Agregar los demás estados en orden (Q0, Q1, Q2...)
         List<String> otrosEstados = estados.stream()
                 .filter(e -> !e.equals(estadoInicial))
                 .sorted()

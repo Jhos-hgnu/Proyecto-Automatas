@@ -139,6 +139,8 @@ public class ControladorDocumento implements ActionListener {
         vista.tblEstados.setModel(modeloVacio);
         vista.tblSimbolos.setModel(modeloVacio);
         vista.tblTransiciones.setModel(modeloVacio);
+        vista.tblcadenas.setModel(modeloVacio);
+        limpiarElementosAFD();
         System.out.println("limpiar");
     }
 
@@ -159,7 +161,7 @@ public class ControladorDocumento implements ActionListener {
             JOptionPane.showMessageDialog(vista, "Debe de seleccionar algún archivo", "Documento no seleccionado", JOptionPane.ERROR_MESSAGE);
             //ArchivoTexto.archivoAbierto
         } else {
-
+            limpiarElementosAFD();
             try {
                 modelo.cargarDatosDesdeArchivo(modelo.getArchivoActual());
 
@@ -307,6 +309,7 @@ public class ControladorDocumento implements ActionListener {
         } else {
             JOptionPane.showMessageDialog(vista, "No existe transición para " + estadoActual + " con " + simbolo,
                     "Error", JOptionPane.ERROR_MESSAGE);
+            validarCadenaFinal();
         }
     }
 
@@ -355,6 +358,12 @@ public class ControladorDocumento implements ActionListener {
         vista.scrollPaneTransiciones.repaint();
     }
 
+    public void limpiarElementosAFD(){
+        vista.limpiarAFD();
+    }
+    
+    
+    
     @Override
     public void actionPerformed(ActionEvent e) {
     }

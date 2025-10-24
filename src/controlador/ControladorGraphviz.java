@@ -82,7 +82,7 @@ public class ControladorGraphviz {
 
     private void mostrarImagenEnVista(String archivoImagen) {
         if (labelImagen == null) {
-            System.out.println("ADVERTENCIA: JLabel es null en GraphvizController");
+            System.out.println("ADVERTENCIA: JLabel es null en ControladorGraphviz");
             return;
         }
         

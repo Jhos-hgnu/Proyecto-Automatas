@@ -60,10 +60,10 @@ public class VistaAcercaDe extends javax.swing.JFrame {
 
         jScrollPane1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
 
-        jTextPane1.setBackground(new java.awt.Color(204, 204, 204));
+        jTextPane1.setBackground(new java.awt.Color(236, 239, 241));
         jTextPane1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jTextPane1.setForeground(new java.awt.Color(0, 0, 0));
-        jTextPane1.setText("Proyecto basado en la teoría de Autómatas y lenguajes formales, para el análisis de cadenas por un autómata.\n\n\nCreado por: Josué Fernando Hicho García\nFacultad: Ingeniería en Sistemas y Ciencias de la Computación\nUniversidad Mariano Gálvez De Guatemala");
+        jTextPane1.setText("Proyecto basado en la teoría de Autómatas y lenguajes formales, para el análisis de cadenas por un autómata.\n\n\nDesarrollado por Josué Fernando Hicho García\nFacultad Ingeniería en Sistemas y Ciencias de la Computación\nUniversidad Mariano Gálvez De Guatemala");
         jTextPane1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jTextPane1.setFocusable(false);
         jScrollPane1.setViewportView(jTextPane1);

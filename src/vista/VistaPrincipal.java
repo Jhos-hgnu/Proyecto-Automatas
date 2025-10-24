@@ -100,7 +100,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
 
         };
 
-        modeloTablaCadenas.addColumn("Cadenas a Analizar");
+        modeloTablaCadenas.addColumn("Cadenas");
         modeloTablaCadenas.addColumn("Válida");
         modeloTablaCadenas.addColumn("Seleccionada");
 
@@ -281,7 +281,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
 
             limpiarColoresTabla();
 
-            // 2. Aplicar renderer para solo el paso actual
+            //Aplicar renderer para el paso actual
             tblTransiciones.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
                 @Override
                 public Component getTableCellRendererComponent(JTable table, Object value,
@@ -307,7 +307,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
                 }
             });
 
-            // 3. Pintar SOLO el encabezado del símbolo ACTUAL
+            // 3. Pintar solo el encabezado del símbolo ACTUAL
             resaltarEncabezadoSimbolo(columna);
             resaltarCeldaTransicion(fila, columna);
             resaltarEstadoColumna(fila);
@@ -334,7 +334,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
                 else if (row == fila && column == 0) {
                     c.setBackground(Color.CYAN);    // Solo esta celda
                     c.setForeground(Color.BLACK);
-                } // NO pintar otras celdas de la columna del símbolo
+                } 
                 else {
                     c.setBackground(Color.WHITE);
                     c.setForeground(Color.BLACK);
@@ -405,6 +405,18 @@ public class VistaPrincipal extends javax.swing.JFrame {
     public void mostrarEstadoInicial(String estado) {
         txtEstadoIncial.setText(estado);
     }
+    
+    public void limpiarAFD(){
+        txtEstadoActual.setText("");
+        txtEstadoIncial.setText("");
+        txtEstadoSiguiente.setText("");
+        txtElementoCadena.setText("");
+        
+        if(lblImageAFD != null) {
+            lblImageAFD.setIcon(null);
+        }
+    }
+        
 
     public String obtenerContenido() {
         return Areatxt.getText();
@@ -531,8 +543,9 @@ public class VistaPrincipal extends javax.swing.JFrame {
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel1.setText("Estado Inicial");
-        ContenedorPrincipal.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 390, -1, 35));
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setText("Estado  Inicial");
+        ContenedorPrincipal.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 400, 110, 35));
 
         txtEstadoIncial.setEditable(false);
         txtEstadoIncial.setBackground(new java.awt.Color(204, 204, 204));
@@ -546,7 +559,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
                 txtEstadoIncialActionPerformed(evt);
             }
         });
-        ContenedorPrincipal.add(txtEstadoIncial, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 430, 95, -1));
+        ContenedorPrincipal.add(txtEstadoIncial, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 430, 95, 40));
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(0, 0, 0));
@@ -562,7 +575,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
         jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(0, 0, 0));
         jLabel5.setText("Transiciones");
-        ContenedorPrincipal.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 20, 177, -1));
+        ContenedorPrincipal.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 30, 177, -1));
 
         jScrollPane1.setForeground(new java.awt.Color(40, 40, 40));
 
@@ -581,7 +594,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
 
         scrollPaneTransiciones.setViewportView(jScrollPane1);
 
-        ContenedorPrincipal.add(scrollPaneTransiciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 50, 674, 125));
+        ContenedorPrincipal.add(scrollPaneTransiciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 60, 674, 125));
 
         tblSimbolos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -653,54 +666,58 @@ public class VistaPrincipal extends javax.swing.JFrame {
                         .addContainerGap()
                         .addComponent(scrollCadenas, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(14, 14, 14)
-                                .addComponent(jLabel6))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(68, 68, 68)
-                                .addComponent(btnProbarCadena)))
+                        .addGap(68, 68, 68)
+                        .addComponent(btnProbarCadena)
                         .addGap(0, 65, Short.MAX_VALUE)))
                 .addContainerGap())
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(42, 42, 42)
+                .addComponent(jLabel6)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(106, 106, 106)
+                .addGap(46, 46, 46)
                 .addComponent(jLabel6)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(scrollCadenas, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(scrollCadenas, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
                 .addComponent(btnProbarCadena, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(318, Short.MAX_VALUE))
         );
 
         ContenedorPrincipal.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 260, 715));
 
+        txtEstadoActual.setEditable(false);
+        txtEstadoActual.setFont(new java.awt.Font("Sans Serif Collection", 1, 18)); // NOI18N
         txtEstadoActual.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        ContenedorPrincipal.add(txtEstadoActual, new org.netbeans.lib.awtextra.AbsoluteConstraints(950, 240, 90, 50));
+        ContenedorPrincipal.add(txtEstadoActual, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 270, 120, 50));
 
+        txtElementoCadena.setEditable(false);
         txtElementoCadena.setFont(new java.awt.Font("Sans Serif Collection", 1, 18)); // NOI18N
         txtElementoCadena.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        ContenedorPrincipal.add(txtElementoCadena, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 240, 90, 50));
+        ContenedorPrincipal.add(txtElementoCadena, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 270, 120, 50));
 
         jLabel7.setFont(new java.awt.Font("Sans Serif Collection", 1, 12)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(0, 0, 0));
         jLabel7.setText("Símbolo Actual");
-        ContenedorPrincipal.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 210, -1, -1));
+        ContenedorPrincipal.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 230, -1, -1));
 
         jLabel8.setFont(new java.awt.Font("Sans Serif Collection", 1, 12)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(0, 0, 0));
         jLabel8.setText("Estado Actual");
-        ContenedorPrincipal.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(950, 210, -1, 30));
+        ContenedorPrincipal.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 230, 90, 30));
 
         jLabel9.setFont(new java.awt.Font("Sans Serif Collection", 1, 12)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(0, 0, 0));
         jLabel9.setText("Estado Siguiente");
-        ContenedorPrincipal.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(1080, 213, -1, 20));
+        ContenedorPrincipal.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(1120, 230, -1, 30));
 
+        txtEstadoSiguiente.setEditable(false);
+        txtEstadoSiguiente.setFont(new java.awt.Font("Sans Serif Collection", 1, 18)); // NOI18N
         txtEstadoSiguiente.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        ContenedorPrincipal.add(txtEstadoSiguiente, new org.netbeans.lib.awtextra.AbsoluteConstraints(1080, 240, 90, 50));
+        ContenedorPrincipal.add(txtEstadoSiguiente, new org.netbeans.lib.awtextra.AbsoluteConstraints(1120, 270, 120, 50));
 
         contenedorImageAFD.setBackground(new java.awt.Color(204, 204, 204));
 
@@ -889,7 +906,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
     public javax.swing.JTable tblEstados;
     public javax.swing.JTable tblSimbolos;
     public javax.swing.JTable tblTransiciones;
-    private javax.swing.JTable tblcadenas;
+    public javax.swing.JTable tblcadenas;
     private javax.swing.JTextField txtElementoCadena;
     private javax.swing.JTextField txtEstadoActual;
     public javax.swing.JTextField txtEstadoIncial;
