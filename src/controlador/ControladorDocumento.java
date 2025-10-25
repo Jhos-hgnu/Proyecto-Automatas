@@ -6,6 +6,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -51,12 +54,12 @@ public class ControladorDocumento implements ActionListener {
         vista.getBtnGuardarComo().addActionListener(e -> guardarComoArchivo());
         vista.getBtnCerrar().addActionListener(e -> cerrarArchivo());
         vista.getBtnNuevo().addActionListener(e -> nuevoArchivo());
-        vista.getBtnEjemplo1().addActionListener(e -> abrirArchivoEjem("src/ejemplosdata/AFD_ejemplo1.txt"));
-        vista.getBtnEjemplo2().addActionListener(e -> abrirArchivoEjem("src/ejemplosdata/AFD_ejemplo2.txt"));
-        vista.getBtnEjemplo3().addActionListener(e -> abrirArchivoEjem("src/ejemplosdata/AFD_ejemplo3.txt"));
+        vista.getBtnEjemplo1().addActionListener(e -> abrirArchivoEjem("AFD_ejemplo1.txt"));
+        vista.getBtnEjemplo2().addActionListener(e -> abrirArchivoEjem("AFD_ejemplo2.txt"));
+        vista.getBtnEjemplo3().addActionListener(e -> abrirArchivoEjem("AFD_ejemplo3.txt"));
         vista.getBtnProbarCadena().addActionListener(e -> probarCadena());
-        vista.getBtnManualUser().addActionListener(e -> abrirPDFs("src/resources/ManualDeUsuarioSimuladorAutomatas.pdf"));
-        vista.getBtnManualTec().addActionListener(e -> abrirPDFs("src/resources/ManualTecnicoSimuladorAutomatas.pdf"));
+        vista.getBtnManualUser().addActionListener(e -> abrirPDFs("ManualDeUsuarioSimuladorAutomatas.pdf"));
+        vista.getBtnManualTec().addActionListener(e -> abrirPDFs("ManualTecnicoSimuladorAutomatas.pdf"));
     }
 
     public void abrirArchivo() {
@@ -75,16 +78,54 @@ public class ControladorDocumento implements ActionListener {
 
     }
 
-    public void abrirArchivoEjem(String rutaArchivo) {
-        File archivo = new File(rutaArchivo);
+    public void abrirArchivoEjem(String nombreArchivo) {
 
         try {
-            System.out.println("ruta: " + rutaArchivo);
-            modelo.cargarDatosDesdeArchivo(archivo);
-            vista.mostrarContenido(modelo.getContenido());
-        } catch (IOException e) {
-            JOptionPane.showMessageDialog(vista, "Error al abrir archivo", "Error Abrir-Archivo", JOptionPane.ERROR_MESSAGE);
+            System.out.println("Buscando ejemplo: " + nombreArchivo);
 
+            String[] posiblesRutas = {
+                "/ejemplosdata/" + nombreArchivo,
+                "/resources/ejemplosdata/" + nombreArchivo,
+                "ejemplosdata/" + nombreArchivo,
+                nombreArchivo
+            };
+
+            InputStream inputStream = null;
+            String rutaEncontrada = null;
+
+            for (String ruta : posiblesRutas) {
+                inputStream = getClass().getResourceAsStream(ruta);
+                if (inputStream != null) {
+                    rutaEncontrada = ruta;
+                    System.out.println("Encontrado en: " + ruta);
+                    break;
+                }
+            }
+
+            if (inputStream != null) {
+                // Crear archivo temporal
+                File archivoTemporal = File.createTempFile("ejemplo_", ".txt");
+                Files.copy(inputStream, archivoTemporal.toPath(), StandardCopyOption.REPLACE_EXISTING);
+                inputStream.close();
+
+                // Usar tu lógica existente
+                modelo.cargarDatosDesdeArchivo(archivoTemporal);
+                vista.mostrarContenido(modelo.getContenido());
+
+                archivoTemporal.deleteOnExit();
+
+            } else {
+                System.err.println("No se encontró en ninguna ruta: " + nombreArchivo);
+                JOptionPane.showMessageDialog(vista,
+                        "Ejemplo no encontrado: " + nombreArchivo,
+                        "Error", JOptionPane.ERROR_MESSAGE);
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(vista,
+                    "Error al abrir ejemplo: " + e.getMessage(),
+                    "Error", JOptionPane.ERROR_MESSAGE);
         }
 
     }
@@ -364,27 +405,70 @@ public class ControladorDocumento implements ActionListener {
         vista.limpiarAFD();
     }
 
-    private void abrirPDFs(String ruta) {
-
-        File archivoPDF = new File(ruta);
-
-        if (!archivoPDF.exists()) {
-            JOptionPane.showMessageDialog(vista, "Archivo No encontrado", "MANUAL NO ENCONTRADO", JOptionPane.WARNING_MESSAGE);
-
-            return;
-        }
-
-        if (!Desktop.isDesktopSupported()) {
-            JOptionPane.showMessageDialog(vista, "Desktop no compatible en este sistema", "PROBLEMA AL ABRIR LOS ARCHIVOS", JOptionPane.WARNING_MESSAGE);
-
-            return;
-        }
+    private void abrirPDFs(String nombrePDF) {
 
         try {
-            Desktop.getDesktop().open(archivoPDF);
-        } catch (IOException e) {
-            JOptionPane.showMessageDialog(vista, "No se pudo abrir el archivo", "MANUAL NO ENCONTRADO", JOptionPane.WARNING_MESSAGE);
+            System.out.println("Buscando PDF: " + nombrePDF);
 
+            //Buscar en múltiples ubicaciones posibles
+            String[] posiblesRutas = {
+                "/resources/" + nombrePDF,
+                "/docs/" + nombrePDF,
+                "/manuales/" + nombrePDF,
+                "resources/" + nombrePDF,
+                "docs/" + nombrePDF,
+                nombrePDF
+            };
+
+            InputStream pdfStream = null;
+            String rutaEncontrada = null;
+
+            for (String ruta : posiblesRutas) {
+                pdfStream = getClass().getResourceAsStream(ruta);
+                if (pdfStream != null) {
+                    rutaEncontrada = ruta;
+                    System.out.println("PDF encontrado en: " + ruta);
+                    break;
+                }
+            }
+
+            if (pdfStream == null) {
+                System.err.println("PDF no encontrado en ninguna ruta: " + nombrePDF);
+                JOptionPane.showMessageDialog(vista,
+                        "Manual PDF no encontrado: " + nombrePDF
+                        + "\n\nRutas probadas:\n" + String.join("\n", posiblesRutas),
+                        "MANUAL NO ENCONTRADO", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+
+            if (!Desktop.isDesktopSupported()) {
+                pdfStream.close();
+                JOptionPane.showMessageDialog(vista,
+                        "Desktop no compatible en este sistema",
+                        "PROBLEMA AL ABRIR LOS ARCHIVOS", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+
+            //Crear archivo temporal desde el recurso del JAR
+            File tempPDF = File.createTempFile("manual_", ".pdf");
+            Files.copy(pdfStream, tempPDF.toPath(), StandardCopyOption.REPLACE_EXISTING);
+            pdfStream.close();
+
+            System.out.println("PDF temporal creado: " + tempPDF.getAbsolutePath());
+
+            //Abrir con el visor de PDF del sistema
+            Desktop.getDesktop().open(tempPDF);
+
+            // Opcional: eliminar el archivo temporal cuando la app se cierre
+            tempPDF.deleteOnExit();
+
+            System.out.println("PDF abierto exitosamente: " + nombrePDF);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(vista,
+                    "Error al abrir el PDF: " + e.getMessage(),
+                    "ERROR AL ABRIR PDF", JOptionPane.ERROR_MESSAGE);
         }
 
     }
